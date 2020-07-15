@@ -13,11 +13,14 @@
   "author": "Amal Salvin",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "sequelize": "^5.22.3",
+    "tedious": "^8.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
