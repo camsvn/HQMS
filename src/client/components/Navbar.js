@@ -18,11 +18,11 @@ export default function Navbar() {
     <nav id="navbar">
       <img src={logo} alt="Hospital Logo" className="logo" />
       <h1 className="title">LEO HOSPITAL</h1>
-      <span className="clock-wrapper">
+      <div className="clock-wrapper">
         <span>{time.slice(0, 2)}</span>
         <span>:</span>
         <span>{`${time.slice(3, 6)} ${time.slice(-2)}`}</span>
-      </span>
+      </div>
     </nav>
   );
 }

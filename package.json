@@ -17,9 +17,12 @@
     "babel-polyfill": "^6.26.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "infinite-react-carousel": "^1.2.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "sequelize": "^5.22.3",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "tedious": "^8.3.0"
   },
   "devDependencies": {

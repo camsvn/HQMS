@@ -1,0 +1,42 @@
+.main {
+  /* text-align: center; */
+}
+
+.token-cotainer {
+}
+
+.doc-counter {
+  text-align: center;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  background-color: azure;
+  width: 350px;
+  height: 70px;
+  display: flex;
+}
+
+.doc-counter button {
+  flex: 0.3;
+}
+
+.doc-counter h3 {
+  flex: 1;
+  padding: 10px;
+}
+.doc-counter div:last-child {
+  width: 100px;
+  background-color: black;
+  color: red;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.doc-counter span {
+  /* border: 1px solid snow; */
+  /* vertical-align: middle; */
+  font-size: 3rem;
+}
