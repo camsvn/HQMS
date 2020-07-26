@@ -23,6 +23,15 @@
   background-color: antiquewhite;
 }
 
+.adminpanel-body {
+  display: flex;
+}
+
+.control-panel {
+  border: 2px solid blue;
+  flex: 0.75;
+}
+
 .btnContainer {
   display: block;
   width: max-content;
@@ -34,7 +43,7 @@
   margin-bottom: 10px;
   border: 1px solid black;
   background-color: azure;
-  width: 350px;
+  width: 450px;
   height: 70px;
   display: flex;
 }
@@ -47,7 +56,7 @@
   flex: 1;
   padding: 10px;
 }
-.doc-counter div:last-child {
+.doc-counter div:nth-child(4) {
   width: 100px;
   background-color: black;
   color: red;
@@ -64,3 +73,43 @@
   /* vertical-align: middle; */
   font-size: 3rem;
 }
+
+.doc-counter div:nth-child(5) {
+  width: 100px;
+  background-color: red;
+  color: black;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.doctor-selection-container {
+  /* border: 2px solid springgreen; */
+  flex: 0.25;
+  background-color: gray;
+  /* display: block; */
+  height: 84vh;
+  overflow: auto;
+  /* padding-top: 3em; */
+}
+
+.doctor-selection-container div {
+  width: max-content;
+  margin: 1rem auto;
+  color: rgb(219, 240, 240);
+  text-align: center;
+}
+
+.doctor-selection-container button {
+  display: block;
+  width: 80%;
+  height: 3em;
+  margin: 1em auto;
+}
+
+/* .doctor-label {
+  display: block;
+  width: 80%;
+  height: 3em;
+  margin: 1em auto;
+} */

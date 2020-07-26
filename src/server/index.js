@@ -1,6 +1,7 @@
 const express = require("express");
 const os = require("os");
 const socket = require("socket.io");
+const path = require("path");
 
 //Local imports
 const config = require("./config/appConfig");
@@ -24,7 +25,7 @@ db.authenticate()
   .catch((err) => console.log(`Connection Error ${err}`));
 
 //Static File - Production
-app.use(express.static("dist"));
+// app.use(express.static("dist"));
 
 //Socket Setup
 var io = socket(server);
@@ -86,4 +87,9 @@ app.get("/api/getDoctors", async (req, res) => {
   // const [result, metadata] = await db.query(queries.queryDoc);
   // res.json(result);
   res.json(localDS);
+});
+
+app.use(express.static("dist"));
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../dist", "index.html"));
 });
