@@ -151,8 +151,15 @@ export default function App() {
             <span>{`Total: ${doctors.length}`}</span>
           </div>
           {doctors.map((item) => (
-            <button type="button" key={item.id} onClick={() => addDoc(item.id)}>
-              {`${item.name} - ${item.isVisible ? "visible" : "not visible"}`}
+            <button
+              type="button"
+              key={item.id}
+              className={
+                item.isVisible ? "doctor-control-toggle" : "doctor-control"
+              }
+              onClick={() => addDoc(item.id)}
+            >
+              {`${item.name}`}
             </button>
           ))}
         </div>

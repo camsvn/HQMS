@@ -100,11 +100,24 @@
   text-align: center;
 }
 
-.doctor-selection-container button {
+/* .doctor-selection-container button {
   display: block;
   width: 80%;
   height: 3em;
   margin: 1em auto;
+} */
+.doctor-control {
+  display: block;
+  width: 80%;
+  height: 3em;
+  margin: 1em auto;
+}
+.doctor-control:hover {
+  background-color: coral;
+}
+
+.doctor-control-toggle {
+  display: none;
 }
 
 /* .doctor-label {
