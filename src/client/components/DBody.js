@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { DoctorContext } from "../contexts/DoctorContext";
+import React, { useEffect, useState } from "react";
+// import { DoctorContext } from "../contexts/DoctorContext";
 // import socketIOClient from "socket.io-client";
 import mockData from "../constants/mockData";
 
@@ -60,9 +60,3 @@ export default function Dispay_Body() {
     </div>
   );
 }
-const styles = {
-  main_body: {
-    border: "10px solid yellowgreen",
-    height: "85vh",
-  },
-};

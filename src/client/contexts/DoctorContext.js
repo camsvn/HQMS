@@ -6,7 +6,7 @@ import React, { createContext, useState, useEffect } from "react";
 
 export const DoctorContext = createContext();
 
-export default function DoctorContextProvider(props) {
+export default function DoctorContextProvider({ children }) {
   const [doctors, setDoctors] = useState([]);
   const [docControl, setDocControl] = useState([]);
 
@@ -101,7 +101,7 @@ export default function DoctorContextProvider(props) {
         setDoctors,
       }}
     >
-      {props.children}
+      {children}
     </DoctorContext.Provider>
   );
 }
