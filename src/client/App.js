@@ -8,12 +8,12 @@ import DoctorContextProvider from "./contexts/DoctorContext";
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="RouterMain">
-        <DoctorContextProvider>
+      <DoctorContextProvider>
+        <div className="RouterMain">
           <Route exact path="/" component={Main} />
           <Route path="/display" component={TokenDisplay} />
-        </DoctorContextProvider>
-      </div>
+        </div>
+      </DoctorContextProvider>
     </BrowserRouter>
   );
 }

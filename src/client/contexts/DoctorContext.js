@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
-import socketIOClient from "socket.io-client";
+// import socketIOClient from "socket.io-client";
 
-var socket;
-const ENDPOINT = "http://desktop-8560w:8080/";
+// var socket;
+// const ENDPOINT = "http://desktop-8560w:8080/";
 
 export const DoctorContext = createContext();
 
@@ -11,36 +11,40 @@ export default function DoctorContextProvider(props) {
   const [docControl, setDocControl] = useState([]);
 
   useEffect(() => {
-    socket = socketIOClient(ENDPOINT);
-    return () => {
-      if (socket) socket.disconnect();
-    };
-  }, []);
+    localStorage.setItem("doctor", JSON.stringify(doctors));
+  }, [doctors]);
 
-  useEffect(() => {
-    //fetch Data from socket
-    socket.on("token-update", (data) => {
-      //Adding isVisible property to received Data
-      var addprop2doc = data.localDS.map((item) => {
-        item.isVisible = docControl.includes(item.id) ? true : false;
-        return item;
-      });
-      setDoctors(addprop2doc);
-    });
-    return () => {};
-  }, [docControl]);
+  //   useEffect(() => {
+  //     socket = socketIOClient(ENDPOINT);
+  //     return () => {
+  //       if (socket) socket.disconnect();
+  //     };
+  //   }, []);
 
-  const countInc = (id) => {
-    socket.emit("increment", {
-      id,
-    });
-  };
+  //   useEffect(() => {
+  //     //fetch Data from socket
+  //     socket.on("token-update", (data) => {
+  //       //Adding isVisible property to received Data
+  //       var addprop2doc = data.localDS.map((item) => {
+  //         item.isVisible = docControl.includes(item.id) ? true : false;
+  //         return item;
+  //       });
+  //       setDoctors(addprop2doc);
+  //     });
+  //     return () => {};
+  //   }, [docControl]);
 
-  const countDec = (id) => {
-    socket.emit("decrement", {
-      id,
-    });
-  };
+  //   const countInc = (id) => {
+  //     socket.emit("increment", {
+  //       id,
+  //     });
+  //   };
+
+  //   const countDec = (id) => {
+  //     socket.emit("decrement", {
+  //       id,
+  //     });
+  //   };
 
   const addDoc = (id) => {
     if (!docControl.includes(id)) {
@@ -49,9 +53,11 @@ export default function DoctorContextProvider(props) {
       var refid = id;
       var indexToModify = doctors.findIndex(({ id }) => id === refid);
       var toggleVisible = { ...doctors[indexToModify], isVisible: true };
-      setDoctors(
-        Object.assign([...doctors], { [indexToModify]: toggleVisible })
-      );
+      var newDocState = Object.assign([...doctors], {
+        [indexToModify]: toggleVisible,
+      });
+      setDoctors(newDocState);
+      //   localStorage.setItem("doctor", JSON.stringify(newDocState));
     } else {
       console.log(`${id} is already in list`);
     }
@@ -63,7 +69,11 @@ export default function DoctorContextProvider(props) {
     var refid = id;
     var indexToModify = doctors.findIndex(({ id }) => id === refid);
     var toggleVisible = { ...doctors[indexToModify], isVisible: false };
-    setDoctors(Object.assign([...doctors], { [indexToModify]: toggleVisible }));
+    var newDocState = Object.assign([...doctors], {
+      [indexToModify]: toggleVisible,
+    });
+    setDoctors(newDocState);
+    // localStorage.setItem("doctor", JSON.stringify(newDocState));
   };
 
   const getDoctorProp = (refid, prop) => {
@@ -83,11 +93,12 @@ export default function DoctorContextProvider(props) {
       value={{
         doctors,
         docControl,
-        countInc,
-        countDec,
+        // countInc,
+        // countDec,
         addDoc,
         rmDoc,
         getDoctorProp,
+        setDoctors,
       }}
     >
       {props.children}
