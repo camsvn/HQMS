@@ -91,37 +91,65 @@ export default function App() {
       {/* Body */}
       <div className="adminpanel-body">
         <div className="message-panel">
-          <div>
-            <button type="button">Toggle Ads</button>
+          <div className="message-board-container">
+            <div>
+              <h2>Scroll Message</h2>
+            </div>
+            <div className="message-board">
+              <Msg />
+              <Msg />
+              <Msg />
+              <Msg />
+              <Msg />
+              <Msg />
+              <Msg />
+              <Msg />
+              <Msg />
+              <Msg />
+            </div>
+            {/* <button type="button">Toggle Ads</button> */}
+            {/* <div className="message-box"> */}
+            <div className="message-box">
+              <input type="text" />
+              <button type="button">Add</button>
+            </div>
+            {/* </div> */}
           </div>
         </div>
         <div className="control-panel">
-          {docControl.map((id) => (
-            <div className="token-container" key={id}>
-              <div className="doc-counter">
-                <button type="button" onClick={() => countDec(id)}>
-                  -
-                </button>
-                <h3>{getDoctorProp(id, "name")}</h3>
-                <button type="button" onClick={() => countInc(id)}>
-                  +
-                </button>
-                <div className="token-counter-view">
-                  <span>{getDoctorProp(id, "token")}</span>
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      rmDoc(id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
+          <div className="control-panel-wrapper">
+            <div>
+              <h2>Control Panel</h2>
             </div>
-          ))}
+            <div className="panel-container">
+              {docControl.map((id) => (
+                <div className="token-container" key={id}>
+                  <div className="doc-counter">
+                    <button type="button" onClick={() => countDec(id)}>
+                      -
+                    </button>
+                    <h3>{getDoctorProp(id, "name")}</h3>
+                    <button type="button" onClick={() => countInc(id)}>
+                      +
+                    </button>
+                    <div className="token-counter-view">
+                      <span>{getDoctorProp(id, "token")}</span>
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          rmDoc(id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
         <div className="doctor-selection-container">
           <div>
@@ -145,3 +173,13 @@ export default function App() {
     </div>
   );
 }
+
+const Msg = () => (
+  <div className="message-container">
+    <div className="message">
+      This is a aaaaaaaaa aaaaaa aaaaaaaaaa aaaa aaaaaaaa aaaaanotice on blah
+      bah bah
+    </div>
+    <button type="button">Del</button>
+  </div>
+);

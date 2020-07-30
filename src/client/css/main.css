@@ -1,13 +1,8 @@
 .main {
   /* text-align: center; */
+  background: rgb(174, 204, 218);
 }
 
-.token-container {
-  display: block;
-  margin: auto;
-  width: max-content;
-  /* border: 1px solid red; */
-}
 .open-window {
   /* appearance: button; */
   /* display: block; */
@@ -29,23 +24,83 @@
 }
 
 .message-panel {
-  border: 1px solid red;
-  flex: 0.2;
+  /* border: 1px solid red; */
+  flex: 0.23;
+  text-align: center;
+  margin-bottom: 5px;
+  /* background-color: rgba(255, 235, 205, 0.8); */
   background-color: blanchedalmond;
-  /* margin: auto; */
-  /* justify-content: center;
-  align-items: center; */
 }
 
-.message-panel div {
-  /* width: max-content; */
-  /* justify-content: center; */
-  margin: 1rem auto;
-  /* border: 5px solid royalblue; */
+.message-board-container {
+  margin: 1rem 0.3rem;
   text-align: center;
 }
 
-.message-panel button {
+.message-board {
+  height: 73.5vh;
+  /* background: rgb(255, 255, 255); */
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message-container {
+  display: flex;
+  margin: 10px 5px;
+  /* height: 8%; */
+}
+
+.message {
+  background-color: rgb(209, 179, 236);
+  height: max-content;
+  width: 100%;
+  margin: initial;
+  padding: 2px 7px;
+  line-height: 18px;
+  /* height: 8%; */
+}
+
+.message-container button {
+  flex: 1;
+  cursor: pointer;
+  color: whitesmoke;
+  /* padding: 10px; */
+  /* width: 40%; */
+  font-size: larger;
+  border: none;
+  /* border-radius: 5px; */
+  background: rgb(221, 62, 62);
+  transition: all 0.4s ease 0s;
+}
+
+.message-container button:hover {
+  /* color: whitesmoke; */
+  background-color: rgb(238, 103, 103);
+  transition: all 0.4s ease 0s;
+}
+
+.message-box {
+  /* height: max-content; */
+  display: flex;
+  /* justify-content: flex-end; */
+  /* width: max-content; */
+  /* border: 1px solid greenyellow; */
+}
+
+.message-box input {
+  height: 6.2vh;
+  width: 80%;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.message-box button {
+  flex: 1;
+  /* margin-left: 5px; */
+}
+
+/* .message-panel button {
   cursor: pointer;
   color: black;
   padding: 10px;
@@ -61,11 +116,41 @@
   color: whitesmoke;
   background-color: red;
   transition: all 0.4s ease 0s;
-}
+} */
 
 .control-panel {
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
+  /* border-left: 5px double black; */
+  margin: 0 5px 5px;
+  /* background-color: rgba(192, 245, 142, 0.9); */
+  background-color: blanchedalmond;
   flex: 0.55;
+}
+
+.control-panel-wrapper {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.control-panel h2 {
+  margin-bottom: 5px;
+  /* width: max-content;
+  margin: 10px auto; */
+  /* border: 1px solid red; */
+}
+
+.panel-container {
+  height: 81vh;
+  overflow-y: auto;
+  /* border: 1px solid black; */
+}
+
+.token-container {
+  display: block;
+  margin: auto;
+  width: max-content;
+
+  /* border: 1px solid red; */
 }
 
 .btnContainer {
@@ -121,8 +206,9 @@
 
 .doctor-selection-container {
   /* border: 2px solid springgreen; */
-  flex: 0.25;
+  flex: 0.22;
   background-color: gray;
+  margin-bottom: 5px;
   /* display: block; */
   /* height: 90vh; */
   overflow: auto;

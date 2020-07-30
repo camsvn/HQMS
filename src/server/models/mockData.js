@@ -50,6 +50,12 @@ const activeDoctors = [
     image: "https://randomuser.me/api/portraits/women/2.jpg",
     currentToken: 8,
   },
+  {
+    id: 70,
+    name: "Dr. Michelle",
+    image: "https://randomuser.me/api/portraits/women/2.jpg",
+    currentToken: 7,
+  },
 ];
 
 module.exports = activeDoctors;
