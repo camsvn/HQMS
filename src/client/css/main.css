@@ -25,11 +25,47 @@
 
 .adminpanel-body {
   display: flex;
+  height: 90vh;
+}
+
+.message-panel {
+  border: 1px solid red;
+  flex: 0.2;
+  background-color: blanchedalmond;
+  /* margin: auto; */
+  /* justify-content: center;
+  align-items: center; */
+}
+
+.message-panel div {
+  /* width: max-content; */
+  /* justify-content: center; */
+  margin: 1rem auto;
+  /* border: 5px solid royalblue; */
+  text-align: center;
+}
+
+.message-panel button {
+  cursor: pointer;
+  color: black;
+  padding: 10px;
+  width: 60%;
+  font-size: larger;
+  border: none;
+  border-radius: 50px;
+  background: #60a3bc;
+  transition: all 0.4s ease 0s;
+}
+
+.message-panel button:hover {
+  color: whitesmoke;
+  background-color: red;
+  transition: all 0.4s ease 0s;
 }
 
 .control-panel {
   border: 2px solid blue;
-  flex: 0.75;
+  flex: 0.55;
 }
 
 .btnContainer {
@@ -88,7 +124,7 @@
   flex: 0.25;
   background-color: gray;
   /* display: block; */
-  height: 84vh;
+  /* height: 90vh; */
   overflow: auto;
   /* padding-top: 3em; */
 }

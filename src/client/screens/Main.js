@@ -90,6 +90,11 @@ export default function App() {
       </div>
       {/* Body */}
       <div className="adminpanel-body">
+        <div className="message-panel">
+          <div>
+            <button type="button">Toggle Ads</button>
+          </div>
+        </div>
         <div className="control-panel">
           {docControl.map((id) => (
             <div className="token-container" key={id}>

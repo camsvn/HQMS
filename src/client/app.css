@@ -9,17 +9,16 @@
   margin: 0;
 }
 
-/* .app {
-  display: flex;
+.app {
+  /* display: flex;
   flex-direction: column;
-  overflow: hidden;
-} */
+  overflow: hidden; */
+  height: 100vh;
+}
 
 /* NavBar Div */
 .appc:nth-child(1) {
-  /* flex: 0.1; */
   height: 10.1vh;
-  /* min-width: 5rem; */
 }
 
 .appc:nth-child(2) {
@@ -192,4 +191,47 @@ body {
 
 .token-card p {
   border: 2px solid greenyellow;
+}
+
+.slider {
+  /* background-color: aliceblue; */
+  margin: 1rem;
+  border-radius: 10px;
+  /* height: 7vh; */
+  height: 90%;
+  padding: 1rem;
+}
+
+.slider-content {
+  /* display: inline; */
+  /* height: 100%; */
+  width: max-content;
+  /* vertical-align: middle; */
+  /* background-color: brown; */
+  border: 1px solid red;
+  margin: auto;
+  /* margin-top: 2rem; */
+}
+
+/* .slider div:nth-of-type(1) {
+  background-color: brown;
+} */
+
+.slider-view {
+  /* height: 68vh; */
+
+  /* background-color: blue; */
+  /* background-color: green; */
+  /* padding: 1rem; */
+  /* border: 1px solid red; */
+  padding-top: 10px;
+}
+
+.box {
+  height: 68vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* align-items: center; */
+  /* background-color: blueviolet; */
 }

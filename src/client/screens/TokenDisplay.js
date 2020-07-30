@@ -10,8 +10,8 @@ export default function TokenDisplay() {
         <Navbar />
       </div>
       <div className="appc">
-        <DBody />
-        {/* <Slider /> */}
+        {/* <DBody /> */}
+        <Slider />
       </div>
       <div className="appc">
         <span>Footer Shit</span>
