@@ -8,6 +8,22 @@
 * {
   margin: 0;
 }
+.marquee-scroll-left {
+  position: relative;
+  color: azure;
+  font-weight: 500;
+  font-size: 2.8rem;
+  height: 100%;
+  overflow-wrap: break-word;
+  margin: auto;
+  text-align: center;
+  overflow: visible;
+  white-space: nowrap;
+  /* width: 100%; */
+  /* direction: rtl; */
+  /* line-height: 50px; */
+  /* border: 2px solid red; */
+}
 
 .app {
   /* display: flex;
