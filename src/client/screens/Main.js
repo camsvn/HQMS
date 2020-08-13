@@ -20,6 +20,8 @@ export default function App() {
     getDoctorProp,
     setDoctors,
   } = useContext(DoctorContext);
+
+  const [message, setMessage] = useState([]);
   const [windowRef, setWindowRef] = useState({});
 
   useEffect(() => {
@@ -64,7 +66,7 @@ export default function App() {
   // }, []);
 
   return (
-    <div className="main">
+    <div className="main noselect">
       {/* Nav Bar */}
       <div className="btnContainer">
         <button
@@ -95,25 +97,19 @@ export default function App() {
             <div>
               <h2>Scroll Message</h2>
             </div>
-            <div className="message-board">
-              <Msg />
-              <Msg />
-              <Msg />
-              <Msg />
-              <Msg />
-              <Msg />
-              <Msg />
-              <Msg />
-              <Msg />
-              <Msg />
+            <div className="message-board custom-scroll">
+              {message.map((item, i) => (
+                <Msg
+                  msg={item}
+                  key={i}
+                  id={i}
+                  setMessage={setMessage}
+                  state={message}
+                />
+              ))}
             </div>
             {/* <button type="button">Toggle Ads</button> */}
-            {/* <div className="message-box"> */}
-            <div className="message-box">
-              <input type="text" />
-              <button type="button">Add</button>
-            </div>
-            {/* </div> */}
+            <MsgForm setMessage={setMessage} state={message} />
           </div>
         </div>
         <div className="control-panel">
@@ -121,7 +117,7 @@ export default function App() {
             <div>
               <h2>Control Panel</h2>
             </div>
-            <div className="panel-container">
+            <div className="panel-container custom-scroll">
               {docControl.map((id) => (
                 <div className="token-container" key={id}>
                   <div className="doc-counter">
@@ -151,7 +147,7 @@ export default function App() {
             </div>
           </div>
         </div>
-        <div className="doctor-selection-container">
+        <div className="doctor-selection-container custom-scroll">
           <div>
             <h2>Active Doctors</h2>
             <span>{`Total: ${doctors.length}`}</span>
@@ -174,12 +170,46 @@ export default function App() {
   );
 }
 
-const Msg = () => (
-  <div className="message-container">
-    <div className="message">
-      This is a aaaaaaaaa aaaaaa aaaaaaaaaa aaaa aaaaaaaa aaaaanotice on blah
-      bah bah
+const Msg = ({ msg, id, setMessage, state }) => {
+  const deleteMsg = (id) => {
+    setMessage(state.filter((item, i) => i !== id));
+  };
+
+  return (
+    <div className="message-container">
+      <div className="message">
+        <p>{msg}</p>
+      </div>
+      <button type="submit" onClick={() => deleteMsg(id)}>
+        Del
+      </button>
     </div>
-    <button type="button">Del</button>
-  </div>
-);
+  );
+};
+
+const MsgForm = ({ setMessage, state }) => {
+  const [msgInput, setMsgInput] = useState("");
+
+  const handleTextChange = (e) => {
+    setMsgInput(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // console.log(msgInput);
+    setMessage([...state, msgInput]);
+    setMsgInput("");
+    // console.log(state);
+  };
+
+  return (
+    <form className="message-box" onSubmit={(e) => handleSubmit(e)}>
+      <input
+        type="text"
+        value={msgInput}
+        onChange={(e) => handleTextChange(e)}
+      />
+      <button type="submit">Add</button>
+    </form>
+  );
+};

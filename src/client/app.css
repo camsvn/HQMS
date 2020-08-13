@@ -38,6 +38,9 @@
 
 .appc:nth-child(3) {
   height: 7.9vh;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
   /* border: 1px solid blue; */
   background-color: rgb(112, 112, 112);
 }

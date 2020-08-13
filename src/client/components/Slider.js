@@ -9,7 +9,7 @@ const SimpleSlider = () => {
     var timer = setInterval(() => {
       var locStoData = JSON.parse(localStorage.getItem("doctor"));
       var newarray = locStoData.filter((item) => item.isVisible === true);
-      console.log(newarray);
+      // console.log(newarray);
       setDoctors(newarray);
     }, 100);
     return () => {
