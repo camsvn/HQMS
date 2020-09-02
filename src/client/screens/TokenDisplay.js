@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
-import styled, { keyframes, css } from "styled-components";
+import React from "react";
 import Navbar from "../components/Navbar";
 import DBody from "../components/DBody";
 import Slider from "../components/Slider";
@@ -18,12 +17,7 @@ export default function TokenDisplay() {
       <div className="appc">
         <Marquee>
           <span>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            Lorem Ipsum is simply dummy
-          </span>
-          <span>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            Lorem Ipsum is simply dummy
+            Lorem Ipsum is simply dummy text of the printing and THE_END
           </span>
         </Marquee>
         {/* <div className="scroll-left">

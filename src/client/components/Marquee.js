@@ -1,5 +1,5 @@
 import React, { useRef, useLayoutEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 const MarqueeComponent = (props) => {
   const targetRef = useRef();
@@ -39,12 +39,21 @@ const scroll = (screenWidth) => keyframes`
   }
 `;
 
-const Marquee = styled.div.attrs((props) => ({
-  screenWidth: props.screenWidth || 0,
-}))`
-  transform: translateX(${(props) => props.screenWidth}px);
-  animation: ${(props) => scroll(props.screenWidth)}
-    ${(props) => props.cwidth / 80}s linear infinite;
+// const Marquee = styled.div.attrs((props) => ({
+//   screenWidth: props.screenWidth || 0,
+// }))`
+//   transform: translateX(${(props) => props.screenWidth}px);
+//   animation: ${(props) => scroll(props.screenWidth)}
+//     ${(props) => props.cwidth / 80}s linear infinite;
+// `;
+
+const Marquee = styled.div`
+  ${({ screenWidth, cwidth }) =>
+    cwidth > screenWidth &&
+    css`
+      transform: translateX(${screenWidth}px);
+      animation: ${scroll(screenWidth)} ${cwidth / 80}s linear infinite;
+    `}
 `;
 
 export default MarqueeComponent;
