@@ -8,6 +8,7 @@ import { DoctorContext } from "../contexts/DoctorContext";
 
 var socket;
 const ENDPOINT = "http://desktop-8560w:8080/";
+// const socket = socketIOClient(ENDPOINT);
 
 export default function App() {
   const {
@@ -23,6 +24,13 @@ export default function App() {
 
   const [message, setMessage] = useState([]);
   const [windowRef, setWindowRef] = useState({});
+
+  useEffect(() => {
+    localStorage.setItem("msg", JSON.stringify(message));
+    return () => {
+      // localStorage.setItem("msg",JSON.stringify([]))
+    };
+  }, [message]);
 
   useEffect(() => {
     socket = socketIOClient(ENDPOINT);

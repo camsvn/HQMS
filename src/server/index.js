@@ -36,26 +36,26 @@ io.on("connection", (socket) => {
   socket.emit("token-update", { localDS });
 
   socket.on("increment", (data) => {
-    console.log(`Increment ${data.id}`);
+    // console.log(`Increment ${data.id}`);
     let indexofID = localDS.findIndex(({ id }) => id === data.id);
     localDS[indexofID].currentToken += 1;
-    console.log(
-      `Next token of ${data.id} is ${localDS[indexofID].currentToken}`
-    );
+    // console.log(
+    //   `Next token of ${data.id} is ${localDS[indexofID].currentToken}`
+    // );
     io.sockets.emit("token-update", { localDS });
     // socket.emit("token-update", { localDS });
     // console.log("Update Event Emitted");
   });
 
   socket.on("decrement", (data) => {
-    console.log(`Decrement ${data.id}`);
+    // console.log(`Decrement ${data.id}`);
     let indexofID = localDS.findIndex(({ id }) => id === data.id);
     localDS[indexofID].currentToken !== 0
       ? (localDS[indexofID].currentToken -= 1)
       : (localDS[indexofID].currentToken = 0);
-    console.log(
-      `Next token of ${data.id} is ${localDS[indexofID].currentToken}`
-    );
+    // console.log(
+    //   `Next token of ${data.id} is ${localDS[indexofID].currentToken}`
+    // );
     io.sockets.emit("token-update", { localDS });
     // socket.emit("token-update", { localDS });
     // console.log("Update Event Emitted");
