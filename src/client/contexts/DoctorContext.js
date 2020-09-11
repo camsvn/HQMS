@@ -8,8 +8,10 @@ export const DoctorContext = createContext();
 
 export default function DoctorContextProvider({ children }) {
   const localDocControl = localStorage.getItem("docControl");
-  const [doctors, setDoctors] = useState([]);
+  const localDoc = JSON.parse(localStorage.getItem("doctor"));
+  // const [doctors, setDoctors] = useState([]);
   // const [docControl, setDocControl] = useState([]);
+  const [doctors, setDoctors] = useState(localDoc ? localDoc : []);
   const [docControl, setDocControl] = useState(
     localDocControl ? JSON.parse(localDocControl) : []
   );

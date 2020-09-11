@@ -12,7 +12,7 @@ const Token = require("./models/token");
 const mockData = require("./models/mockData");
 
 const localDS = [...mockData];
-const messages = ["This App is Awesome", "Leo Hospital", "Working"];
+const messages = [];
 
 const app = express();
 
@@ -61,13 +61,13 @@ io.on("connection", (socket) => {
     io.emit("getmsg", JSON.stringify(messages));
   });
 
-  socket.on("dbupdate", (txt) => {
-    console.log(`Update request from C# ${txt}`);
-  });
+  // socket.on("dbupdate", (txt) => {
+  //   console.log(`Update request from C# ${txt}`);
+  // });
 
   socket.on("token-update", (data) => {
     const { doctorID, token } = data;
-    console.log("Token Update Request");
+    // console.log("Token Update Request");
     Token.update(
       { token },
       {
@@ -124,7 +124,7 @@ app.get("/api/dbupdate", async (req, res) => {
   result.length &&
     result.map(async (item) => {
       const id = await Token.create(item);
-      console.log(`${item.docName}'s ID is ${id}`);
+      // console.log(`${item.docName}'s ID is ${id}`);
       io.emit("dbupdated");
     });
 });

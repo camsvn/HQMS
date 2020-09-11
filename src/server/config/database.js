@@ -5,7 +5,8 @@ const { database, user, password, server } = config.sql;
 module.exports = new Sequelize(database, user, password, {
   dialect: "mssql",
   host: server,
-  logging: (...msg) => console.log(`${msg[1].type} Operation`),
+  // logging: (...msg) => console.log(`${msg[1].type} Operation`),
+  logging: false,
   define: {
     freezeTableName: true,
   },

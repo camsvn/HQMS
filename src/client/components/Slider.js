@@ -3,14 +3,17 @@ import Slider from "infinite-react-carousel";
 // import data from "../constants/mockData";
 
 const SimpleSlider = () => {
-  const [doctors, setDoctors] = useState([]);
+  var locStoData = JSON.parse(localStorage.getItem("doctor"));
+  // var newarray = locStoData.filter((item) => item.isVisible === true);
+  const [doctors, setDoctors] = useState(locStoData ? locStoData : []);
+  // const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
     var timer = setInterval(() => {
-      var locStoData = JSON.parse(localStorage.getItem("doctor"));
-      var newarray = locStoData.filter((item) => item.isVisible === true);
+      // var locStoData = JSON.parse(localStorage.getItem("doctor"));
+      // var newarray = locStoData.filter((item) => item.isVisible === true);
       // console.log(newarray);
-      setDoctors(newarray);
+      setDoctors(JSON.parse(localStorage.getItem("doctor")));
     }, 100);
     return () => {
       clearInterval(timer);
@@ -26,13 +29,16 @@ const SimpleSlider = () => {
               {item.map((data) => {
                 if (data.isVisible)
                   return (
-                    <div className="token-card" key={data.id}>
-                      <img src={data.image} alt="Doctor DP" />
+                    <div className="token-card" key={data.doctorID}>
+                      <img
+                        src="https://randomuser.me/api/portraits/lego/3.jpg"
+                        alt="Doctor DP"
+                      />
                       <div>
-                        <h1>{data.name}</h1>
+                        <h1>{data.docName}</h1>
                       </div>
                       <div>
-                        <span>{data.currentToken}</span>
+                        <span>{data.token}</span>
                       </div>
                     </div>
                   );
