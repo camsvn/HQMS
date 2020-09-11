@@ -4,16 +4,16 @@ import Slider from "infinite-react-carousel";
 
 const SimpleSlider = () => {
   var locStoData = JSON.parse(localStorage.getItem("doctor"));
-  // var newarray = locStoData.filter((item) => item.isVisible === true);
-  const [doctors, setDoctors] = useState(locStoData ? locStoData : []);
+  var newarray = locStoData.filter((item) => item.isVisible === true);
+  const [doctors, setDoctors] = useState(newarray ? newarray : []);
   // const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
     var timer = setInterval(() => {
-      // var locStoData = JSON.parse(localStorage.getItem("doctor"));
-      // var newarray = locStoData.filter((item) => item.isVisible === true);
+      var locStoData = JSON.parse(localStorage.getItem("doctor"));
+      var newarray = locStoData.filter((item) => item.isVisible === true);
       // console.log(newarray);
-      setDoctors(JSON.parse(localStorage.getItem("doctor")));
+      setDoctors(newarray);
     }, 100);
     return () => {
       clearInterval(timer);
