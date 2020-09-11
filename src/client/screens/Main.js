@@ -26,18 +26,21 @@ export default function App() {
   const [windowRef, setWindowRef] = useState({});
 
   useEffect(() => {
-    localStorage.setItem("msg", JSON.stringify(message));
-    return () => {
-      // localStorage.setItem("msg",JSON.stringify([]))
-    };
-  }, [message]);
-
-  useEffect(() => {
     socket = socketIOClient(ENDPOINT);
+    socket.on("getmsg", (data) => {
+      setMessage(JSON.parse(data));
+    });
     return () => {
       if (socket) socket.disconnect();
     };
   }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("msg", JSON.stringify(message));
+  //   return () => {
+  //     // localStorage.setItem("msg",JSON.stringify([]))
+  //   };
+  // }, [message]);
 
   useEffect(() => {
     //fetch Data from socket
@@ -49,6 +52,9 @@ export default function App() {
       });
       setDoctors(addprop2doc);
       // localStorage.setItem("doctor", JSON.stringify(addprop2doc));
+    });
+    socket.on("doc", (data) => {
+      console.log(JSON.parse(data));
     });
     return () => {};
   }, [docControl]);
@@ -180,7 +186,8 @@ export default function App() {
 
 const Msg = ({ msg, id, setMessage, state }) => {
   const deleteMsg = (id) => {
-    setMessage(state.filter((item, i) => i !== id));
+    // setMessage(state.filter((item, i) => i !== id));
+    socket.emit("delmsg", id);
   };
 
   return (
@@ -205,7 +212,8 @@ const MsgForm = ({ setMessage, state }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(msgInput);
-    setMessage([...state, msgInput]);
+    // setMessage([...state, msgInput]);
+    socket.emit("addmsg", msgInput);
     setMsgInput("");
     // console.log(state);
   };

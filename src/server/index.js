@@ -2,14 +2,17 @@ const express = require("express");
 const os = require("os");
 const socket = require("socket.io");
 const path = require("path");
+const { Op, NOW } = require("sequelize");
 
 //Local imports
 const config = require("./config/appConfig");
 const db = require("./config/database");
-// const queries = require("./models/queries");
+const queries = require("./models/queries");
+const Token = require("./models/token");
 const mockData = require("./models/mockData");
 
 const localDS = [...mockData];
+const messages = ["This App is Awesome", "Leo Hospital", "Working"];
 
 const app = express();
 
@@ -29,11 +32,28 @@ db.authenticate()
 
 //Socket Setup
 var io = socket(server);
+// app.set('socketio',io);
 io.on("connection", (socket) => {
   var client = socket.handshake.address.slice(7);
   console.log(`${client} Socket Connected`, socket.id);
 
   socket.emit("token-update", { localDS });
+
+  socket.emit("getmsg", JSON.stringify(messages));
+
+  socket.on("addmsg", (msg) => {
+    messages.push(msg);
+    io.emit("getmsg", JSON.stringify(messages));
+  });
+
+  socket.on("delmsg", (id) => {
+    messages.splice(id, 1);
+    io.emit("getmsg", JSON.stringify(messages));
+  });
+
+  socket.on("dbupdate", (txt) => {
+    console.log(`Update request from C# ${txt}`);
+  });
 
   socket.on("increment", (data) => {
     // console.log(`Increment ${data.id}`);
@@ -70,6 +90,28 @@ io.on("connection", (socket) => {
 app.get("/api/getUsername", (req, res) =>
   res.send({ username: os.userInfo().username })
 );
+
+app.get("/api/dbupdate", async (req, res) => {
+  res.status(200).send("Update Request Received");
+  console.log("Recived Http Request");
+  await Token.sync();
+  // console.log("Table Token Model Created");
+  const [result, metadata] = await db.query(queries.getUniqueDoc);
+  result.length &&
+    result.map(async (item) => {
+      const id = await Token.create(item);
+      console.log(`${item.docName}'s ID is ${id}`);
+    });
+  // console.log(result);
+  const data = await Token.findAll({
+    where: {
+      date: NOW(),
+    },
+  });
+  // console.log(data);
+  // console.log(JSON.stringify(data, null, 2));
+  io.emit("doc", JSON.stringify(data, null, 2));
+});
 
 app.get("/api/getDoctors", async (req, res) => {
   // const opVisit = require("./models/opVisit");

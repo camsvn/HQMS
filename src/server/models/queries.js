@@ -14,4 +14,18 @@ INNER JOIN HospitalMain.dbo.Doctor doc
 ON op.DoctorID = doc.ID
 WHERE DateTime > CONVERT(varchar,GETDATE(),112) AND DateTime<GETDATE()`;
 
-module.exports = { queryOP, queryDoc };
+const getDoc = `SELECT DISTINCT op.DoctorID AS doctorID, doc.Name AS docName
+FROM [HospitalMain].[dbo].[AppointmentBooking] op
+INNER JOIN HospitalMain.dbo.Doctor doc
+ON op.DoctorID = doc.ID
+WHERE Date = CAST(GETDATE() AS DATE)
+ORDER BY docName`;
+
+const getUniqueDoc = `SELECT DISTINCT op.DoctorID AS doctorID, doc.Name AS docName
+FROM [HospitalMain].[dbo].[AppointmentBooking] op
+INNER JOIN HospitalMain.dbo.Doctor doc
+ON op.DoctorID = doc.ID
+WHERE Date = CAST(GETDATE() AS DATE) AND DoctorID NOT IN (SELECT DISTINCT Token.doctorID FROM Token)
+ORDER BY docName`;
+
+module.exports = { queryOP, queryDoc, getDoc, getUniqueDoc };

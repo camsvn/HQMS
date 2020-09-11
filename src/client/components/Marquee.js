@@ -1,19 +1,37 @@
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
+import socketIOClient from "socket.io-client";
 import styled, { keyframes, css } from "styled-components";
+
+const ENDPOINT = "http://desktop-8560w:8080/";
 
 const MarqueeComponent = ({ children }) => {
   const targetRef = useRef();
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const screenWidth = window.screen.width;
 
+  const [msg, setMsg] = useState([]);
+
+  useEffect(() => {
+    const socket = socketIOClient(ENDPOINT);
+    socket.on("getmsg", (data) => {
+      // console.log(JSON.parse(data));
+      setMsg(JSON.parse(data));
+    });
+  }, []);
+
   useLayoutEffect(() => {
+    // console.log("Marquee");
     if (targetRef.current) {
       setDimensions({
         width: targetRef.current.offsetWidth,
         height: targetRef.current.offsetHeight,
       });
     }
-  }, []);
+  }, [msg]);
+
+  // setInterval(() => {
+  //   console.log(targetRef.current.offsetWidth);
+  // }, 1000);
 
   return (
     <Marquee
@@ -22,7 +40,14 @@ const MarqueeComponent = ({ children }) => {
       screenWidth={screenWidth}
       cwidth={dimensions.width}
     >
-      {children}
+      {msg.length
+        ? msg.map((item, _idx) => (
+            <span key={_idx}>
+              {item} {msg.length - 1 !== _idx && "| "}
+            </span>
+          ))
+        : null}
+      {/* {children} */}
       {/* <span>{` width: ${dimensions.width}`}</span>
       <span>{` height: ${dimensions.height}`}</span> */}
     </Marquee>
@@ -48,12 +73,15 @@ const scroll = (screenWidth) => keyframes`
 // `;
 
 const Marquee = styled.div`
-  ${({ screenWidth, cwidth }) =>
-    cwidth > screenWidth &&
-    css`
-      transform: translateX(${screenWidth}px);
-      animation: ${scroll(screenWidth)} ${cwidth / 80}s linear infinite;
-    `}
+  ${({ screenWidth, cwidth }) => {
+    return (
+      cwidth > screenWidth &&
+      css`
+        transform: translateX(${screenWidth}px);
+        animation: ${scroll(screenWidth)} ${cwidth / 80}s linear infinite;
+      `
+    );
+  }}
 `;
 
 export default MarqueeComponent;
