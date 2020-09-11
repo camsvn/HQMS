@@ -32,18 +32,28 @@ db.authenticate()
 
 //Socket Setup
 var io = socket(server);
-// app.set('socketio',io);
 io.on("connection", (socket) => {
   var client = socket.handshake.address.slice(7);
   console.log(`${client} Socket Connected`, socket.id);
 
-  socket.emit("token-update", { localDS });
+  // socket.emit("token-update", { localDS });
 
   socket.emit("getmsg", JSON.stringify(messages));
 
   socket.on("addmsg", (msg) => {
     messages.push(msg);
     io.emit("getmsg", JSON.stringify(messages));
+  });
+
+  socket.on("getdoc", async () => {
+    Token.findAll({
+      where: {
+        date: NOW(),
+      },
+      order: ["docName"],
+    }).then((data) => {
+      socket.emit("doc", JSON.stringify(data, null, 2));
+    });
   });
 
   socket.on("delmsg", (id) => {
@@ -55,31 +65,45 @@ io.on("connection", (socket) => {
     console.log(`Update request from C# ${txt}`);
   });
 
-  socket.on("increment", (data) => {
-    // console.log(`Increment ${data.id}`);
-    let indexofID = localDS.findIndex(({ id }) => id === data.id);
-    localDS[indexofID].currentToken += 1;
-    // console.log(
-    //   `Next token of ${data.id} is ${localDS[indexofID].currentToken}`
-    // );
-    io.sockets.emit("token-update", { localDS });
-    // socket.emit("token-update", { localDS });
-    // console.log("Update Event Emitted");
+  socket.on("token-update", (data) => {
+    const { doctorID, token } = data;
+    console.log("Token Update Request");
+    Token.update(
+      { token },
+      {
+        where: {
+          date: NOW(),
+          doctorID,
+        },
+      }
+    ).then((data) => io.emit("dbupdated"));
   });
 
-  socket.on("decrement", (data) => {
-    // console.log(`Decrement ${data.id}`);
-    let indexofID = localDS.findIndex(({ id }) => id === data.id);
-    localDS[indexofID].currentToken !== 0
-      ? (localDS[indexofID].currentToken -= 1)
-      : (localDS[indexofID].currentToken = 0);
-    // console.log(
-    //   `Next token of ${data.id} is ${localDS[indexofID].currentToken}`
-    // );
-    io.sockets.emit("token-update", { localDS });
-    // socket.emit("token-update", { localDS });
-    // console.log("Update Event Emitted");
-  });
+  // socket.on("increment", (data) => {
+  //   //   let indexofID = localDS.findIndex(({ id }) => id === data.id);
+  //   //   localDS[indexofID].currentToken += 1;
+  //   //   io.sockets.emit("token-update", { localDS });
+  //   const { doctorID, token } = data;
+  //   Token.update({token},{
+  //     where: {
+  //       doctorID
+  //     }
+  //   })
+  // });
+
+  // socket.on("decrement", (data) => {
+  //   //   let indexofID = localDS.findIndex(({ id }) => id === data.id);
+  //   //   localDS[indexofID].currentToken !== 0
+  //   //     ? (localDS[indexofID].currentToken -= 1)
+  //   //     : (localDS[indexofID].currentToken = 0);
+  //   //   io.sockets.emit("token-update", { localDS });
+  //   const { doctorID, token } = data;
+  //   Token.update({token},{
+  //     where: {
+  //       doctorID
+  //     }
+  //   })
+  // });
 
   socket.on("disconnect", () => {
     console.log(`${client} Socket Disonnected`, socket.id);
@@ -101,16 +125,8 @@ app.get("/api/dbupdate", async (req, res) => {
     result.map(async (item) => {
       const id = await Token.create(item);
       console.log(`${item.docName}'s ID is ${id}`);
+      io.emit("dbupdated");
     });
-  // console.log(result);
-  const data = await Token.findAll({
-    where: {
-      date: NOW(),
-    },
-  });
-  // console.log(data);
-  // console.log(JSON.stringify(data, null, 2));
-  io.emit("doc", JSON.stringify(data, null, 2));
 });
 
 app.get("/api/getDoctors", async (req, res) => {

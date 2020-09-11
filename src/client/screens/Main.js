@@ -20,6 +20,7 @@ export default function App() {
     rmDoc,
     getDoctorProp,
     setDoctors,
+    updateDoctors,
   } = useContext(DoctorContext);
 
   const [message, setMessage] = useState([]);
@@ -30,45 +31,36 @@ export default function App() {
     socket.on("getmsg", (data) => {
       setMessage(JSON.parse(data));
     });
-    return () => {
-      if (socket) socket.disconnect();
-    };
-  }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem("msg", JSON.stringify(message));
-  //   return () => {
-  //     // localStorage.setItem("msg",JSON.stringify([]))
-  //   };
-  // }, [message]);
-
-  useEffect(() => {
-    //fetch Data from socket
-    socket.on("token-update", (data) => {
-      //Adding isVisible property to received Data
-      var addprop2doc = data.localDS.map((item) => {
-        item.isVisible = docControl.includes(item.id) ? true : false;
-        return item;
-      });
-      setDoctors(addprop2doc);
-      // localStorage.setItem("doctor", JSON.stringify(addprop2doc));
+    socket.emit("getdoc");
+    socket.on("dbupdated", () => {
+      socket.emit("getdoc");
     });
     socket.on("doc", (data) => {
-      console.log(JSON.parse(data));
+      updateDoctors(JSON.parse(data));
+      // setDoctors(JSON.parse(data));
     });
-    return () => {};
+    return () => {
+      if (socket) {
+        socket.disconnect();
+      }
+    };
   }, [docControl]);
 
-  const countInc = (id) => {
-    socket.emit("increment", {
-      id,
+  const countInc = (doctorID, token) => {
+    // console.log(docControl);
+    socket.emit("token-update", {
+      doctorID,
+      token: ++token,
     });
   };
 
-  const countDec = (id) => {
-    socket.emit("decrement", {
-      id,
-    });
+  const countDec = (doctorID, token) => {
+    // console.log(docControl);
+    token !== 0 &&
+      socket.emit("token-update", {
+        doctorID,
+        token: --token,
+      });
   };
 
   // useEffect(() => {
@@ -132,32 +124,39 @@ export default function App() {
               <h2>Control Panel</h2>
             </div>
             <div className="panel-container custom-scroll">
-              {docControl.map((id) => (
-                <div className="token-container" key={id}>
-                  <div className="doc-counter">
-                    <button type="button" onClick={() => countDec(id)}>
-                      -
-                    </button>
-                    <h3>{getDoctorProp(id, "name")}</h3>
-                    <button type="button" onClick={() => countInc(id)}>
-                      +
-                    </button>
-                    <div className="token-counter-view">
-                      <span>{getDoctorProp(id, "token")}</span>
-                    </div>
-                    <div>
+              {docControl &&
+                docControl.map((id) => (
+                  <div className="token-container" key={id}>
+                    <div className="doc-counter">
                       <button
                         type="button"
-                        onClick={() => {
-                          rmDoc(id);
-                        }}
+                        onClick={() => countDec(id, getDoctorProp(id, "token"))}
                       >
-                        Delete
+                        -
                       </button>
+                      <h3>{getDoctorProp(id, "name")}</h3>
+                      <button
+                        type="button"
+                        onClick={() => countInc(id, getDoctorProp(id, "token"))}
+                      >
+                        +
+                      </button>
+                      <div className="token-counter-view">
+                        <span>{getDoctorProp(id, "token")}</span>
+                      </div>
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            rmDoc(id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>
@@ -169,13 +168,13 @@ export default function App() {
           {doctors.map((item) => (
             <button
               type="button"
-              key={item.id}
+              key={item.doctorID}
               className={
                 item.isVisible ? "doctor-control-toggle" : "doctor-control"
               }
-              onClick={() => addDoc(item.id)}
+              onClick={() => addDoc(item.doctorID)}
             >
-              {`${item.name}`}
+              {`${item.docName}`}
             </button>
           ))}
         </div>

@@ -7,12 +7,20 @@ import React, { createContext, useState, useEffect } from "react";
 export const DoctorContext = createContext();
 
 export default function DoctorContextProvider({ children }) {
+  const localDocControl = localStorage.getItem("docControl");
   const [doctors, setDoctors] = useState([]);
-  const [docControl, setDocControl] = useState([]);
+  // const [docControl, setDocControl] = useState([]);
+  const [docControl, setDocControl] = useState(
+    localDocControl ? JSON.parse(localDocControl) : []
+  );
 
   useEffect(() => {
     localStorage.setItem("doctor", JSON.stringify(doctors));
   }, [doctors]);
+
+  useEffect(() => {
+    localStorage.setItem("docControl", JSON.stringify(docControl));
+  }, [docControl]);
 
   //   useEffect(() => {
   //     socket = socketIOClient(ENDPOINT);
@@ -46,18 +54,28 @@ export default function DoctorContextProvider({ children }) {
   //     });
   //   };
 
+  const updateDoctors = (data) => {
+    const newData = data.map((item) => {
+      if (docControl.includes(item.doctorID))
+        return Object.assign({}, item, { isVisible: true });
+      return item;
+    });
+    setDoctors(newData);
+  };
+
   const addDoc = (id) => {
     if (!docControl.includes(id)) {
       var addDocArr = [...docControl, id];
       setDocControl(addDocArr);
       var refid = id;
-      var indexToModify = doctors.findIndex(({ id }) => id === refid);
+      var indexToModify = doctors.findIndex(
+        ({ doctorID }) => doctorID === refid
+      );
       var toggleVisible = { ...doctors[indexToModify], isVisible: true };
       var newDocState = Object.assign([...doctors], {
         [indexToModify]: toggleVisible,
       });
       setDoctors(newDocState);
-      //   localStorage.setItem("doctor", JSON.stringify(newDocState));
     } else {
       console.log(`${id} is already in list`);
     }
@@ -67,22 +85,28 @@ export default function DoctorContextProvider({ children }) {
     var rmDocArr = docControl.filter((refid) => refid !== id);
     setDocControl(rmDocArr);
     var refid = id;
-    var indexToModify = doctors.findIndex(({ id }) => id === refid);
+    var indexToModify = doctors.findIndex(({ doctorID }) => doctorID === refid);
     var toggleVisible = { ...doctors[indexToModify], isVisible: false };
     var newDocState = Object.assign([...doctors], {
       [indexToModify]: toggleVisible,
     });
     setDoctors(newDocState);
-    // localStorage.setItem("doctor", JSON.stringify(newDocState));
   };
 
   const getDoctorProp = (refid, prop) => {
     switch (prop) {
       case "name":
-        return doctors[doctors.findIndex(({ id }) => id === refid)].name;
+        if (doctors.length > 0)
+          return doctors[
+            doctors.findIndex(({ doctorID }) => doctorID === refid)
+          ].docName;
+        break;
       case "token":
-        return doctors[doctors.findIndex(({ id }) => id === refid)]
-          .currentToken;
+        if (doctors.length > 0)
+          return doctors[
+            doctors.findIndex(({ doctorID }) => doctorID === refid)
+          ].token;
+        break;
       default:
         console.log("invalid Prop");
     }
@@ -93,12 +117,11 @@ export default function DoctorContextProvider({ children }) {
       value={{
         doctors,
         docControl,
-        // countInc,
-        // countDec,
         addDoc,
         rmDoc,
         getDoctorProp,
         setDoctors,
+        updateDoctors,
       }}
     >
       {children}

@@ -25,6 +25,16 @@ const getUniqueDoc = `SELECT DISTINCT op.DoctorID AS doctorID, doc.Name AS docNa
 FROM [HospitalMain].[dbo].[AppointmentBooking] op
 INNER JOIN HospitalMain.dbo.Doctor doc
 ON op.DoctorID = doc.ID
+WHERE Date = CAST(GETDATE() AS DATE) AND DoctorID NOT IN (
+SELECT DISTINCT Token.doctorID 
+FROM [HospitalMain].[dbo].[Token]
+WHERE Date = CAST(GETDATE() AS DATE))
+ORDER BY docName`;
+
+const getUniqueDoc1 = `SELECT DISTINCT op.DoctorID AS doctorID, doc.Name AS docName
+FROM [HospitalMain].[dbo].[AppointmentBooking] op
+INNER JOIN HospitalMain.dbo.Doctor doc
+ON op.DoctorID = doc.ID
 WHERE Date = CAST(GETDATE() AS DATE) AND DoctorID NOT IN (SELECT DISTINCT Token.doctorID FROM Token)
 ORDER BY docName`;
 
