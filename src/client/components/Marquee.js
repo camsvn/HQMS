@@ -43,7 +43,8 @@ const MarqueeComponent = ({ children }) => {
       {msg.length
         ? msg.map((item, _idx) => (
             <span key={_idx}>
-              {item} {msg.length - 1 !== _idx && "| "}
+              {/* {item} {msg.length - 1 !== _idx && "◆ "} */}
+              {item} {msg.length - 1 !== _idx && <span>◆ </span>}
             </span>
           ))
         : null}
@@ -78,7 +79,7 @@ const Marquee = styled.div`
       cwidth > screenWidth &&
       css`
         transform: translateX(${screenWidth}px);
-        animation: ${scroll(screenWidth)} ${cwidth / 80}s linear infinite;
+        animation: ${scroll(screenWidth)} ${cwidth / 300}s linear infinite;
       `
     );
   }}

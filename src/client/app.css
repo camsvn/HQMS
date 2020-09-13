@@ -1,7 +1,8 @@
 :root {
   --card-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  --header-height: 9vh;
+  /* --header-height: 9vh; */
+  --header-height: 10.1vh;
   --mainbody-height: 85vh;
 }
 
@@ -35,12 +36,17 @@
 /* NavBar Div */
 .appc:nth-child(1) {
   height: 10.1vh;
+  min-height: 80px;
 }
 
 .appc:nth-child(2) {
   height: 82vh;
+  min-height: 645px;
   overflow: auto;
   animation: marquee 20s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes amarquee {
@@ -54,9 +60,10 @@
 
 .appc:nth-child(3) {
   height: 7.9vh;
+  min-height: 60px;
   display: flex;
-  /* justify-content: center; */
-  align-items: center;
+  /* justify-content: center; */ /*Never Add Justify Content*/
+  /* align-items: center; */
   /* border: 1px solid blue; */
   background-color: rgb(112, 112, 112);
 }
@@ -76,6 +83,8 @@ body {
   /* background-color: rgb(239, 168, 168); */
   background: rgb(49, 58, 63);
   /* background: rgb(213, 240, 255); */
+  min-width: 1200px;
+  /* min-height: 740px; */
 }
 #navbar {
   height: var(--header-height);
@@ -220,11 +229,13 @@ body {
 
 .slider {
   /* background-color: aliceblue; */
-  margin: 1rem;
-  border-radius: 10px;
+  /* margin: 1rem; */
+  /* border-radius: 10px; */
   /* height: 7vh; */
-  height: 90%;
-  padding: 1rem;
+  /* height: 90%; */
+  width: 100%;
+  /* padding: 1rem; */
+  /* z-index: 99; */
 }
 
 .slider-content {
@@ -233,7 +244,7 @@ body {
   width: max-content;
   /* vertical-align: middle; */
   /* background-color: brown; */
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin: auto;
   /* margin-top: 2rem; */
 }
@@ -249,14 +260,17 @@ body {
   /* background-color: green; */
   /* padding: 1rem; */
   /* border: 1px solid red; */
-  padding-top: 10px;
+  /* padding-top: 10px; */
 }
 
 .box {
-  height: 68vh;
+  /* height: 68vh; */
+  height: 73vh;
+  min-height: 550px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  /* z-index: -1; */
   /* align-items: center; */
   /* background-color: blueviolet; */
 }
