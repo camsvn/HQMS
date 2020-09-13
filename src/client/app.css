@@ -160,12 +160,20 @@ body {
   /* overflow: scroll; */
 }
 
+.disptoken-container {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  margin-bottom: 1rem;
+}
+
 .token-card {
   line-height: 10rem;
   height: 10rem;
   /* cursor: text; */
   font-size: 2rem;
-  margin: 0 5% 1.5%;
+  /* margin: 0 5% 1.5%; */
+  margin: 0 5%;
   border-radius: 10px;
   /* margin: 0; */
   /* padding: 0 2rem; */
@@ -184,10 +192,12 @@ body {
   border-radius: 10px 0 0 10px;
 }
 
-.token-card div:nth-child(2) {
+/* .token-card div:nth-child(2) */
+.token-name {
   display: flex;
   /* width: 80%; */
   flex-grow: 1;
+  align-items: center;
   /* border: 2px solid blueviolet; */
 }
 
@@ -199,14 +209,17 @@ body {
   /* margin-block-end: initial; */
 }
 
-.token-card div:last-child {
+/* .token-card div:last-child */
+.token-number {
   line-height: initial;
   /* background-color: black; */
   background-color: rgb(196, 41, 41);
   color: rgb(30, 30, 31);
   /* background-color: rgb(42, 116, 165);
   color: rgb(239, 247, 252); */
-  width: 15rem;
+  width: 16%;
+  max-width: 240px;
+  min-width: 160px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -223,8 +236,38 @@ body {
   /* border: 2px solid coral; */
 }
 
-.token-card p {
-  border: 2px solid greenyellow;
+.doctor-msg {
+  background: rgb(24, 24, 24);
+  height: 4rem;
+  min-height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0 5%; */
+  width: 80%;
+  min-width: 960px;
+  align-self: center;
+  border-radius: 0 0 10px 10px;
+  /* border-bottom: 2px solid black;
+  border-right: 2px solid black;
+  border-left: 2px solid black; */
+  /* border: 1px solid black; */
+}
+
+.doctor-msg span {
+  color: brown;
+  font-weight: 800;
+  font-size: 2rem;
+  position: relative;
+  top: -0.1em;
+  width: 100%;
+  min-width: 960px;
+  /* max-width: 1250px; */
+  padding: 0 1rem;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  /* max-width: 1200px; */
 }
 
 .slider {
@@ -270,6 +313,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  overflow: auto;
   /* z-index: -1; */
   /* align-items: center; */
   /* background-color: blueviolet; */

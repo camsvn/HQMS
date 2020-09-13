@@ -29,16 +29,21 @@ const SimpleSlider = () => {
               {item.map((data) => {
                 if (data.isVisible)
                   return (
-                    <div className="token-card" key={data.doctorID}>
-                      <img
-                        src="https://randomuser.me/api/portraits/lego/3.jpg"
-                        alt="Doctor DP"
-                      />
-                      <div>
-                        <h1>{data.docName}</h1>
+                    <div key={data.doctorID} className="disptoken-container">
+                      <div className="token-card">
+                        <img
+                          src="https://randomuser.me/api/portraits/lego/3.jpg"
+                          alt="Doctor DP"
+                        />
+                        <div className="token-name">
+                          <h1>{data.docName}</h1>
+                        </div>
+                        <div className="token-number">
+                          <span>{data.token}</span>
+                        </div>
                       </div>
-                      <div>
-                        <span>{data.token}</span>
+                      <div className="doctor-msg">
+                        <span>Doctor on Lunch Break </span>
                       </div>
                     </div>
                   );
