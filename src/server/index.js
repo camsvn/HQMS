@@ -45,6 +45,11 @@ io.on("connection", (socket) => {
     io.emit("getmsg", JSON.stringify(messages));
   });
 
+  socket.on("delmsg", (id) => {
+    messages.splice(id, 1);
+    io.emit("getmsg", JSON.stringify(messages));
+  });
+
   socket.on("getdoc", async () => {
     Token.findAll({
       where: {
@@ -54,11 +59,6 @@ io.on("connection", (socket) => {
     }).then((data) => {
       socket.emit("doc", JSON.stringify(data, null, 2));
     });
-  });
-
-  socket.on("delmsg", (id) => {
-    messages.splice(id, 1);
-    io.emit("getmsg", JSON.stringify(messages));
   });
 
   // socket.on("dbupdate", (txt) => {
@@ -117,7 +117,7 @@ app.get("/api/getUsername", (req, res) =>
 
 app.get("/api/dbupdate", async (req, res) => {
   res.status(200).send("Update Request Received");
-  console.log("Recived Http Request");
+  // console.log("Recived Http Request");
   await Token.sync();
   // console.log("Table Token Model Created");
   const [result, metadata] = await db.query(queries.getUniqueDoc);

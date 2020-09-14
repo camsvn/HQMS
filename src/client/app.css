@@ -20,6 +20,8 @@
   text-align: center;
   overflow: visible;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
   /* width: 100%; */
   /* direction: rtl; */
   /* line-height: 50px; */

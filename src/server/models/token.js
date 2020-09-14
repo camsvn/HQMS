@@ -28,39 +28,15 @@ const token = db.define(
       field: "Token",
       defaultValue: 0,
     },
-    // opID: {
-    //   type: Sequelize.INTEGER,
-    //   field: "OPRegisterID",
-    // },
-    // num: {
-    //   type: Sequelize.INTEGER,
-    //   field: "No",
-    // },
-    // regFee: {
-    //   type: Sequelize.DECIMAL(19, 4),
-    //   field: "RegistrationFee",
-    // },
-    // consultationFee: {
-    //   type: Sequelize.DECIMAL(19, 4),
-    //   field: "ConsultationFee",
-    // },
-    // discount: {
-    //   type: Sequelize.DECIMAL(19, 4),
-    //   field: "Discount",
-    // },
-    // deleted: {
-    //   type: Sequelize.BOOLEAN,
-    //   field: "Deleted",
-    // },
-    // uid: {
-    //   type: Sequelize.INTEGER,
-    //   field: "UserID",
-    // },
-    // isConsulted: {
-    //   type: Sequelize.BOOLEAN,
-    //   field: "IsConsulted",
-    //   defaultValue: false,
-    // },
+    onBreak: {
+      type: Sequelize.BOOLEAN,
+      field: "onBreak",
+      defaultValue: false,
+    },
+    onBreakComment: {
+      type: Sequelize.STRING,
+      field: "Comment",
+    },
   },
   { timestamps: false }
 );

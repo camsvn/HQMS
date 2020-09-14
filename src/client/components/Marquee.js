@@ -43,8 +43,8 @@ const MarqueeComponent = ({ children }) => {
       {msg.length
         ? msg.map((item, _idx) => (
             <span key={_idx}>
-              {/* {item} {msg.length - 1 !== _idx && "◆ "} */}
-              {item} {msg.length - 1 !== _idx && <span>◆ </span>}
+              {/* {item} {msg.length - 1 !== _idx && "◆Amal "} */}
+              {item} {msg.length - 1 !== _idx && <span>&#9670;&nbsp;</span>}
             </span>
           ))
         : null}

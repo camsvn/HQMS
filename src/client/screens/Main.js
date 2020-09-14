@@ -128,13 +128,13 @@ export default function App() {
                 docControl.map((id) => (
                   <div className="token-container" key={id}>
                     <div className="doc-counter">
+                      <h3>{getDoctorProp(id, "name")}</h3>
                       <button
                         type="button"
                         onClick={() => countDec(id, getDoctorProp(id, "token"))}
                       >
                         -
                       </button>
-                      <h3>{getDoctorProp(id, "name")}</h3>
                       <button
                         type="button"
                         onClick={() => countInc(id, getDoctorProp(id, "token"))}

@@ -188,18 +188,22 @@
   margin-bottom: 10px;
   border: 1px solid black;
   background-color: azure;
-  width: 450px;
-  height: 70px;
+  min-width: 450px;
+  width: 100%;
+  /* height: 70px; */
   display: flex;
 }
 
 .doc-counter button {
-  flex: 0.3;
+  /* flex: 0.3; */
+  width: 3rem;
 }
 
 .doc-counter h3 {
   flex: 1;
+  align-self: center;
   padding: 10px;
+  width: 500px;
 }
 .doc-counter div:nth-child(4) {
   width: 100px;
