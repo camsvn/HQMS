@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import Slider from "infinite-react-carousel";
 // import data from "../constants/mockData";
 
@@ -8,7 +8,7 @@ const SimpleSlider = () => {
   const [doctors, setDoctors] = useState(newarray ? newarray : []);
   // const [doctors, setDoctors] = useState([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     var timer = setInterval(() => {
       var locStoData = JSON.parse(localStorage.getItem("doctor"));
       var newarray = locStoData.filter((item) => item.isVisible === true);
