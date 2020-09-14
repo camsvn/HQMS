@@ -42,8 +42,12 @@ const SimpleSlider = () => {
                           <span>{data.token}</span>
                         </div>
                       </div>
-                      <div className="doctor-msg">
-                        <span>Doctor on Lunch Break </span>
+                      <div
+                        className={
+                          data.onBreak ? "doctor-msg" : "doctor-msg-close"
+                        }
+                      >
+                        <span>{data.onBreakComment}</span>
                       </div>
                     </div>
                   );

@@ -79,6 +79,34 @@ io.on("connection", (socket) => {
     ).then((data) => io.emit("dbupdated"));
   });
 
+  socket.on("onBreak-update", (data) => {
+    const { doctorID, onBreak } = data;
+    // console.log("Token Update Request");
+    Token.update(
+      { onBreak },
+      {
+        where: {
+          date: NOW(),
+          doctorID,
+        },
+      }
+    ).then((data) => io.emit("dbupdated"));
+  });
+
+  socket.on("onBreakMsg-submit", (data) => {
+    const { doctorID, onBreakComment } = data;
+    // console.log(onBreakComment);
+    Token.update(
+      { onBreakComment, onBreak: true },
+      {
+        where: {
+          date: NOW(),
+          doctorID,
+        },
+      }
+    ).then((data) => io.emit("dbupdated"));
+  });
+
   // socket.on("increment", (data) => {
   //   //   let indexofID = localDS.findIndex(({ id }) => id === data.id);
   //   //   localDS[indexofID].currentToken += 1;

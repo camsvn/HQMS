@@ -65,6 +65,24 @@ export default function DoctorContextProvider({ children }) {
     setDoctors(newData);
   };
 
+  const updateDocProps = (id, collapse = true) => {
+    const newData = doctors.map((item) => {
+      if (item.doctorID === id && docControl.includes(item.doctorID))
+        return Object.assign({}, item, { collapse });
+      return item;
+    });
+    setDoctors(newData);
+  };
+
+  const updateDocPropsMsg = (id, comment) => {
+    const newData = doctors.map((item) => {
+      if (item.doctorID === id && docControl.includes(item.doctorID))
+        return Object.assign({}, item, { onBreakComment: comment });
+      return item;
+    });
+    setDoctors(newData);
+  };
+
   const addDoc = (id) => {
     if (!docControl.includes(id)) {
       var addDocArr = [...docControl, id];
@@ -109,6 +127,24 @@ export default function DoctorContextProvider({ children }) {
             doctors.findIndex(({ doctorID }) => doctorID === refid)
           ].token;
         break;
+      case "collapse":
+        if (doctors.length > 0)
+          return doctors[
+            doctors.findIndex(({ doctorID }) => doctorID === refid)
+          ].collapse;
+        break;
+      case "onBreak":
+        if (doctors.length > 0)
+          return doctors[
+            doctors.findIndex(({ doctorID }) => doctorID === refid)
+          ].onBreak;
+        break;
+      case "comment":
+        if (doctors.length > 0)
+          return doctors[
+            doctors.findIndex(({ doctorID }) => doctorID === refid)
+          ].onBreakComment;
+        break;
       default:
         console.log("invalid Prop");
     }
@@ -124,6 +160,8 @@ export default function DoctorContextProvider({ children }) {
         getDoctorProp,
         setDoctors,
         updateDoctors,
+        updateDocProps,
+        updateDocPropsMsg,
       }}
     >
       {children}

@@ -21,13 +21,25 @@ export default function App() {
     getDoctorProp,
     setDoctors,
     updateDoctors,
+    updateDocProps,
+    updateDocPropsMsg,
   } = useContext(DoctorContext);
 
   const [message, setMessage] = useState([]);
+  const [breakmsg, setBreakmsg] = useState([]);
   const [windowRef, setWindowRef] = useState({});
 
   useEffect(() => {
     socket = socketIOClient(ENDPOINT);
+    return () => {
+      if (socket) {
+        socket.disconnect();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    // socket = socketIOClient(ENDPOINT);
     socket.on("getmsg", (data) => {
       setMessage(JSON.parse(data));
     });
@@ -40,9 +52,9 @@ export default function App() {
       // setDoctors(JSON.parse(data));
     });
     return () => {
-      if (socket) {
-        socket.disconnect();
-      }
+      // if (socket) {
+      //   socket.disconnect();
+      // }
     };
   }, [docControl]);
 
@@ -61,6 +73,24 @@ export default function App() {
         doctorID,
         token: --token,
       });
+  };
+
+  const checkboxChange = (e, doctorID) => {
+    // console.log(e.target.checked);
+    // console.log(doctorID);
+    socket.emit("onBreak-update", {
+      doctorID,
+      onBreak: e.target.checked,
+    });
+  };
+
+  const handleBreakMsgSubmit = (e, doctorID) => {
+    e.preventDefault();
+    // console.log(getDoctorProp(doctorID, "comment"));
+    socket.emit("onBreakMsg-submit", {
+      doctorID,
+      onBreakComment: getDoctorProp(doctorID, "comment"),
+    });
   };
 
   // useEffect(() => {
@@ -128,14 +158,30 @@ export default function App() {
                 docControl.map((id) => (
                   <div className="token-container" key={id}>
                     <div className="doc-counter">
-                      <h3>{getDoctorProp(id, "name")}</h3>
                       <button
+                        className="collapse-control"
+                        type="button"
+                        onClick={() =>
+                          updateDocProps(id, !getDoctorProp(id, "collapse"))
+                        }
+                      >
+                        ▼
+                      </button>
+                      <div className="doc-counter-mainview">
+                        <h3>{getDoctorProp(id, "name")}</h3>
+                        {getDoctorProp(id, "onBreak") && (
+                          <p>onBreak: {getDoctorProp(id, "comment")}</p>
+                        )}
+                      </div>
+                      <button
+                        className="token-control"
                         type="button"
                         onClick={() => countDec(id, getDoctorProp(id, "token"))}
                       >
                         -
                       </button>
                       <button
+                        className="token-control"
                         type="button"
                         onClick={() => countInc(id, getDoctorProp(id, "token"))}
                       >
@@ -144,7 +190,7 @@ export default function App() {
                       <div className="token-counter-view">
                         <span>{getDoctorProp(id, "token")}</span>
                       </div>
-                      <div>
+                      <div className="token-counter-delete">
                         <button
                           type="button"
                           onClick={() => {
@@ -154,6 +200,37 @@ export default function App() {
                           Delete
                         </button>
                       </div>
+                    </div>
+                    <div
+                      className={
+                        getDoctorProp(id, "collapse")
+                          ? "collapse-container"
+                          : "collapse-container-close"
+                      }
+                    >
+                      <form
+                        className="collapse-container-form"
+                        onSubmit={(e) => handleBreakMsgSubmit(e, id)}
+                      >
+                        <input
+                          className="collapse-form-checkbox"
+                          type="checkbox"
+                          checked={getDoctorProp(id, "onBreak")}
+                          onChange={(e) => checkboxChange(e, id)}
+                        />
+                        <span>onBreak</span>
+                        <input
+                          className="collapse-form-input"
+                          type="text"
+                          placeholder="Enter the reason here"
+                          required
+                          // value={getDoctorProp(id, "comment")}
+                          onChange={(e) =>
+                            updateDocPropsMsg(id, e.currentTarget.value)
+                          }
+                        />
+                        <button type="submit">Submit</button>
+                      </form>
                     </div>
                   </div>
                 ))}

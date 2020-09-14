@@ -256,6 +256,10 @@ body {
   /* border: 1px solid black; */
 }
 
+.doctor-msg-close {
+  display: none;
+}
+
 .doctor-msg span {
   color: brown;
   font-weight: 800;
