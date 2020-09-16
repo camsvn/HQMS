@@ -2,7 +2,7 @@ const express = require("express");
 const os = require("os");
 const socket = require("socket.io");
 const path = require("path");
-const { Op, NOW } = require("sequelize");
+const { NOW } = require("sequelize");
 
 //Local imports
 const config = require("./config/appConfig");
@@ -22,7 +22,7 @@ const server = app.listen(config.port || 8080, () =>
 
 db.authenticate()
   .then(async () => {
-    console.log(`Connected to ${config.sql.server}`);
+    console.log(`Connected to ${config.sql.host}`);
     await server;
   })
   .catch((err) => console.log(`Connection Error ${err}`));
