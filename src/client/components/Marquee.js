@@ -1,8 +1,9 @@
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 import styled, { keyframes, css } from "styled-components";
+import { ENDPOINT } from "../constants/constants";
 
-const ENDPOINT = "http://desktop-8560w:8080/";
+// const ENDPOINT = "http://desktop-8560w:8080/";
 
 const MarqueeComponent = ({ children }) => {
   const targetRef = useRef();

@@ -5,9 +5,10 @@ import socketIOClient from "socket.io-client";
 import "../css/main.css";
 // import mockData from "./constants/mockData";
 import { DoctorContext } from "../contexts/DoctorContext";
+import { ENDPOINT } from "../constants/constants";
 
 var socket;
-const ENDPOINT = "http://desktop-8560w:8080/";
+// const ENDPOINT = "http://desktop-8560w:8080/";
 // const socket = socketIOClient(ENDPOINT);
 
 export default function App() {
@@ -36,6 +37,10 @@ export default function App() {
     }
     socket = socketIOClient(ENDPOINT);
     window.addEventListener("beforeunload", handleExit);
+    socket.emit("syncdb");
+    socket.on("client-syncdb", () => {
+      socket.emit("syncdb");
+    });
     return () => {
       if (socket) {
         window.removeEventListener("beforeunload", handleExit);
@@ -48,7 +53,7 @@ export default function App() {
     socket.on("getmsg", (data) => {
       setMessage(JSON.parse(data));
     });
-    // socket.emit("getdoc");
+    socket.emit("getdoc");
     socket.on("dbupdated", () => {
       socket.emit("getdoc");
     });

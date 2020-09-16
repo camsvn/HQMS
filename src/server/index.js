@@ -37,6 +37,17 @@ io.on("connection", (socket) => {
   console.log(`${client} Socket Connected`, socket.id);
 
   // socket.emit("token-update", { localDS });
+  socket.on("syncdb", async () => {
+    await Token.sync();
+    // console.log("Syncing DB");
+    const [result, metadata] = await db.query(queries.getUniqueDoc);
+    result.length &&
+      result.map(async (item) => {
+        const id = await Token.create(item);
+        // console.log(`${item.docName}'s ID is ${id}`);
+        io.emit("dbupdated");
+      });
+  });
 
   socket.emit("getmsg", JSON.stringify(messages));
 
@@ -78,7 +89,10 @@ io.on("connection", (socket) => {
           doctorID,
         },
       }
-    ).then((data) => io.emit("dbupdated"));
+    ).then((data) => {
+      io.emit("dbupdated");
+      io.emit("client-syncdb");
+    });
   });
 
   socket.on("onBreak-update", (data) => {
