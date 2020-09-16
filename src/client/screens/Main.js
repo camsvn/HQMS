@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-// import axios from "axios";
+import axios from "axios";
 import socketIOClient from "socket.io-client";
 
 import "../css/main.css";
@@ -30,20 +30,25 @@ export default function App() {
   const [windowRef, setWindowRef] = useState({});
 
   useEffect(() => {
+    function handleExit() {
+      // socket.emit("close", "Close Browser");
+      localStorage.clear();
+    }
     socket = socketIOClient(ENDPOINT);
+    window.addEventListener("beforeunload", handleExit);
     return () => {
       if (socket) {
+        window.removeEventListener("beforeunload", handleExit);
         socket.disconnect();
       }
     };
   }, []);
 
   useEffect(() => {
-    // socket = socketIOClient(ENDPOINT);
     socket.on("getmsg", (data) => {
       setMessage(JSON.parse(data));
     });
-    socket.emit("getdoc");
+    // socket.emit("getdoc");
     socket.on("dbupdated", () => {
       socket.emit("getdoc");
     });

@@ -40,6 +40,8 @@ io.on("connection", (socket) => {
 
   socket.emit("getmsg", JSON.stringify(messages));
 
+  socket.on("close", (msg) => console.log(msg));
+
   socket.on("addmsg", (msg) => {
     messages.push(msg);
     io.emit("getmsg", JSON.stringify(messages));
