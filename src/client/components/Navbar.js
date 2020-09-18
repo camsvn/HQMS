@@ -27,10 +27,27 @@ export default function Navbar() {
   );
 }
 
+// function getTime() {
+//   var time = new Date().toLocaleString("en-IN", {
+//     hour: "2-digit",
+//     minute: "2-digit",
+//   });
+//   return time;
+// }
+
 function getTime() {
-  var time = new Date().toLocaleString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  return time;
+  let ampm;
+  const d = new Date();
+  var hour = d.getHours();
+  var min = d.getMinutes();
+  if (hour > 12) {
+    ampm = "PM";
+    hour = ("0" + (hour - 12)).slice(-2);
+  } else {
+    ampm = "AM";
+    hour = ("0" + hour).slice(-2);
+  }
+  if (min < 10) min = ("0" + min).slice(-2);
+  console.log(`${hour} : ${min} ${ampm}`);
+  return `${hour}:${min} ${ampm}`;
 }

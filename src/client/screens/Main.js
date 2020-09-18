@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import axios from "axios";
 import socketIOClient from "socket.io-client";
 
 import "../css/main.css";
@@ -27,7 +26,6 @@ export default function App() {
   } = useContext(DoctorContext);
 
   const [message, setMessage] = useState([]);
-  const [breakmsg, setBreakmsg] = useState([]);
   const [windowRef, setWindowRef] = useState({});
 
   useEffect(() => {
@@ -121,7 +119,8 @@ export default function App() {
           onClick={() => {
             let ref = window.open(
               `${window.location.href}display`,
-              "tokenview"
+              "tokenView",
+              `left=${screen.width}, height=${screen.height}, width=${screen.width}`
             );
             setWindowRef(ref);
           }}
