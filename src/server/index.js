@@ -1,6 +1,7 @@
 const express = require("express");
 const os = require("os");
 const socket = require("socket.io");
+const cron = require("node-cron");
 const path = require("path");
 const { NOW } = require("sequelize");
 
@@ -47,6 +48,12 @@ io.on("connection", (socket) => {
         // console.log(`${item.docName}'s ID is ${id}`);
         io.emit("dbupdated");
       });
+  });
+
+  //Corn Scheduler
+  cron.schedule("0 1 0 * * *", () => {
+    io.emit("sync-dbupdated");
+    io.emit("dbupdated");
   });
 
   socket.emit("getmsg", JSON.stringify(messages));

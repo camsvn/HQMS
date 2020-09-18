@@ -19,7 +19,7 @@ export default function App() {
     addDoc,
     rmDoc,
     getDoctorProp,
-    setDoctors,
+    resetState,
     updateDoctors,
     updateDocProps,
     updateDocPropsMsg,
@@ -36,6 +36,9 @@ export default function App() {
     socket = socketIOClient(ENDPOINT);
     window.addEventListener("beforeunload", handleExit);
     socket.emit("syncdb");
+    socket.on("sync-dbupdated", () => {
+      resetState();
+    });
     socket.on("client-syncdb", () => {
       socket.emit("syncdb");
     });

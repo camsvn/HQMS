@@ -65,6 +65,10 @@ export default function DoctorContextProvider({ children }) {
     setDoctors(newData);
   };
 
+  const resetState = () => {
+    setDocControl([]);
+  };
+
   const updateDocProps = (id, collapse = true) => {
     const newData = doctors.map((item) => {
       if (item.doctorID === id && docControl.includes(item.doctorID))
@@ -162,6 +166,7 @@ export default function DoctorContextProvider({ children }) {
         updateDoctors,
         updateDocProps,
         updateDocPropsMsg,
+        resetState,
       }}
     >
       {children}
