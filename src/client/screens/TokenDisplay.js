@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import DBody from "../components/DBody";
 import Slider from "../components/Slider";
 import Marquee from "../components/Marquee";
+import BillNumber from "../components/BillNumber";
 
 const ENDPOINT = "http://desktop-8560w:8080/";
 
@@ -33,20 +34,17 @@ export default function TokenDisplay() {
       <div className="appc">
         {/* <DBody /> */}
         <Slider />
+        <BillNumber />
+        {/* <div className="bill-view">
+          <h1 style={{ marginTop: 10 }}>Bill Number</h1>
+          <p>Amal</p>
+          <p>Amal</p>
+          <p>Amal</p>
+          <p>Amal</p>
+        </div> */}
       </div>
       <div className="appc">
-        <Marquee>
-          {/* <span> */}
-          {/* {console.log(msg)} */}
-          {/* {msg.length ? msg.map((item) => <span> {item} | </span>) : null} */}
-          {/* Ama | Test | Pillow | */}
-          {/* </span> */}
-        </Marquee>
-        {/* <div className="scroll-left">
-          <span>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-          </span>
-        </div> */}
+        <Marquee />
       </div>
     </div>
   );

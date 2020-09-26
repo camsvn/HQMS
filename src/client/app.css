@@ -51,6 +51,24 @@
   align-items: center;
 }
 
+.bill-view {
+  /* border: 1px solid snow; */
+  height: 82vh;
+  min-height: 645px;
+  width: 17.7vw;
+  background-color: rgb(112, 112, 112);
+  border-bottom: 1px solid rgb(49, 58, 63);
+  text-align: center;
+  color: snow;
+  /* transform: translateX(17.6vw); */
+  /* display: none; */
+}
+
+.bill-view p {
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
 @keyframes amarquee {
   0% {
     right: 0;
@@ -219,7 +237,7 @@ body {
   color: rgb(30, 30, 31);
   /* background-color: rgb(42, 116, 165);
   color: rgb(239, 247, 252); */
-  width: 16%;
+  width: 16vw;
   max-width: 240px;
   min-width: 160px;
   display: flex;

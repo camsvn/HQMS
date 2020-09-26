@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useLayoutEffect } from "react";
 import socketIOClient from "socket.io-client";
 
 import "../css/main.css";
@@ -30,7 +30,7 @@ export default function App() {
   const [billInput, setBillInput] = useState("");
   const [viewBill, setViewBill] = useState(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     function handleExit() {
       // socket.emit("close", "Close Browser");
       localStorage.clear();
@@ -38,11 +38,18 @@ export default function App() {
     socket = socketIOClient(ENDPOINT);
     window.addEventListener("beforeunload", handleExit);
     socket.emit("syncdb");
+    socket.emit("getdoc");
     socket.on("sync-dbupdated", () => {
       resetState();
     });
     socket.on("client-syncdb", () => {
       socket.emit("syncdb");
+    });
+    socket.on("getmsg", (data) => {
+      setMessage(JSON.parse(data));
+    });
+    socket.on("dbupdated", () => {
+      socket.emit("getdoc");
     });
     return () => {
       if (socket) {
@@ -53,22 +60,9 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    socket.on("getmsg", (data) => {
-      setMessage(JSON.parse(data));
-    });
-    socket.emit("getdoc");
-    socket.on("dbupdated", () => {
-      socket.emit("getdoc");
-    });
     socket.on("doc", (data) => {
       updateDoctors(JSON.parse(data));
-      // setDoctors(JSON.parse(data));
     });
-    return () => {
-      // if (socket) {
-      //   socket.disconnect();
-      // }
-    };
   }, [docControl]);
 
   const countInc = (doctorID, token) => {
@@ -130,8 +124,8 @@ export default function App() {
           onClick={() => {
             let ref = window.open(
               `${window.location.href}display`,
-              "tokenView",
-              `left=${screen.width}, height=${screen.height}, width=${screen.width}`
+              "tokenView"
+              // `left=${screen.width}, height=${screen.height}, width=${screen.width}`
             );
             setWindowRef(ref);
           }}
@@ -173,6 +167,7 @@ export default function App() {
             View Bill
           </span>
           <input
+            required
             type="text"
             placeholder="Bill number"
             value={billInput}
@@ -360,6 +355,7 @@ const MsgForm = ({ setMessage, state }) => {
   return (
     <form className="message-box" onSubmit={(e) => handleSubmit(e)}>
       <input
+        required
         type="text"
         value={msgInput}
         onChange={(e) => handleTextChange(e)}
