@@ -48,6 +48,6 @@ function getTime() {
     hour = ("0" + hour).slice(-2);
   }
   if (min < 10) min = ("0" + min).slice(-2);
-  console.log(`${hour} : ${min} ${ampm}`);
+  // console.log(`${hour} : ${min} ${ampm}`);
   return `${hour}:${min} ${ampm}`;
 }

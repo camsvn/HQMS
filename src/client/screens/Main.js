@@ -27,6 +27,8 @@ export default function App() {
 
   const [message, setMessage] = useState([]);
   const [windowRef, setWindowRef] = useState({});
+  const [billInput, setBillInput] = useState("");
+  const [viewBill, setViewBill] = useState(true);
 
   useEffect(() => {
     function handleExit() {
@@ -104,6 +106,12 @@ export default function App() {
     });
   };
 
+  const handleBill = (e) => {
+    e.preventDefault();
+    billInput !== "" && console.log(billInput);
+    setBillInput("");
+  };
+
   // useEffect(() => {
   //   console.log("fetched from db / rendered");
   //   axios.get("/api/getDoctors").then((res) => {
@@ -137,7 +145,50 @@ export default function App() {
         >
           Close Token View
         </button>
+        <form
+          onSubmit={handleBill}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            right: 25,
+            top: 20,
+            // top: viewBill ? 20 : 30,
+            transform: viewBill ? "translateX(0)" : "translateX(150px)",
+            transition:
+              "transform 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05) 0s",
+          }}
+        >
+          <input
+            type="checkbox"
+            style={{ marginRight: 5 }}
+            checked={viewBill}
+            onChange={() => setViewBill(!viewBill)}
+          />
+          <span
+            className="view-bill"
+            style={{ color: "white", marginRight: 10 }}
+          >
+            View Bill
+          </span>
+          <input
+            type="text"
+            placeholder="Bill number"
+            value={billInput}
+            onChange={(e) => setBillInput(e.target.value)}
+            style={{
+              marginRight: "10px",
+              height: "2rem",
+              maxWidth: 100,
+              paddingLeft: 8,
+              // display: !viewBill && "none",
+            }}
+          />
+          {/* <button type="submit">submit</button> */}
+        </form>
       </div>
+
       {/* Body */}
       <div className="adminpanel-body">
         <div className="message-panel">

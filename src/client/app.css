@@ -45,7 +45,7 @@
   height: 82vh;
   min-height: 645px;
   overflow: auto;
-  animation: marquee 20s linear infinite;
+  /* animation: marquee 20s linear infinite; */
   display: flex;
   justify-content: center;
   align-items: center;
