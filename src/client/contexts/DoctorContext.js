@@ -7,6 +7,7 @@ import React, { createContext, useState, useEffect } from "react";
 export const DoctorContext = createContext();
 
 export default function DoctorContextProvider({ children }) {
+  // var socket;
   const localDocControl = localStorage.getItem("docControl");
   const localDoc = JSON.parse(localStorage.getItem("doctor"));
   // const [doctors, setDoctors] = useState([]);

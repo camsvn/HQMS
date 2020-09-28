@@ -67,7 +67,7 @@ const settings = {
   arrowsBlock: false,
   autoplay: true,
   autoplaySpeed: 5200,
-  dots: true,
+  dots: false,
   duration: 200,
   // overScan: 1,
   pauseOnHover: false,

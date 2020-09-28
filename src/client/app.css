@@ -60,13 +60,23 @@
   border-bottom: 1px solid rgb(49, 58, 63);
   text-align: center;
   color: snow;
+  overflow-y: auto;
   /* transform: translateX(17.6vw); */
   /* display: none; */
 }
 
+.test-results {
+  display: flex;
+  flex-direction: column;
+}
+
 .bill-view p {
   font-size: 1.5rem;
-  margin-top: 0.5rem;
+  padding: 0.25rem 0;
+  border-top: 1px solid rgb(49, 58, 63);
+  overflow: visible;
+  overflow-wrap: break-word;
+  white-space: nowrap;
 }
 
 @keyframes amarquee {

@@ -50,6 +50,12 @@ io.on("connection", (socket) => {
       });
   });
 
+  socket.on("getlabresults", async () => {
+    const [result, metadata] = await db.query(queries.ltestResult);
+    console.log(result.length);
+    result.length && io.emit("labresults", JSON.stringify(result));
+  });
+
   //Corn Scheduler
   cron.schedule("0 1 0 * * *", () => {
     io.emit("sync-dbupdated");
@@ -181,6 +187,8 @@ app.get("/api/dbupdate", async (req, res) => {
 });
 
 app.get("/api/getDoctors", async (req, res) => {
+  const [result, metadata] = await db.query(queries.ltestResult);
+
   // const opVisit = require("./models/opVisit");
   // try {
   //   const opList = await opVisit.findAll({
@@ -195,7 +203,7 @@ app.get("/api/getDoctors", async (req, res) => {
 
   // const [result, metadata] = await db.query(queries.queryDoc);
   // res.json(result);
-  res.json(localDS);
+  res.json(result);
 });
 
 app.use(express.static("dist"));

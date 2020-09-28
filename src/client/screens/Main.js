@@ -25,10 +25,12 @@ export default function App() {
     updateDocPropsMsg,
   } = useContext(DoctorContext);
 
+  // var { socket } = useContext(DoctorContext);
+
   const [message, setMessage] = useState([]);
   const [windowRef, setWindowRef] = useState({});
-  const [billInput, setBillInput] = useState("");
   const [viewBill, setViewBill] = useState(true);
+  // const [billInput, setBillInput] = useState("");
 
   useLayoutEffect(() => {
     function handleExit() {
@@ -65,6 +67,10 @@ export default function App() {
     });
   }, [docControl]);
 
+  useEffect(() => {
+    localStorage.setItem("labresultsview", viewBill);
+  }, [viewBill]);
+
   const countInc = (doctorID, token) => {
     // console.log(docControl);
     socket.emit("token-update", {
@@ -100,19 +106,11 @@ export default function App() {
     });
   };
 
-  const handleBill = (e) => {
-    e.preventDefault();
-    billInput !== "" && console.log(billInput);
-    setBillInput("");
-  };
-
-  // useEffect(() => {
-  //   console.log("fetched from db / rendered");
-  //   axios.get("/api/getDoctors").then((res) => {
-  //     setDoctors(res.data);
-  //   });
-  //   return () => {};
-  // }, []);
+  // const handleBill = (e) => {
+  //   e.preventDefault();
+  //   billInput !== "" && console.log(billInput);
+  //   setBillInput("");
+  // };
 
   return (
     <div className="main noselect">
@@ -140,18 +138,20 @@ export default function App() {
           Close Token View
         </button>
         <form
-          onSubmit={handleBill}
+          // onSubmit={handleBill}
           style={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            height: "2rem",
             position: "absolute",
             right: 25,
             top: 20,
+            // display: "none",
             // top: viewBill ? 20 : 30,
-            transform: viewBill ? "translateX(0)" : "translateX(150px)",
-            transition:
-              "transform 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05) 0s",
+            // transform: viewBill ? "translateX(0)" : "translateX(150px)",
+            // transition:
+            //   "transform 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05) 0s",
           }}
         >
           <input
@@ -166,7 +166,7 @@ export default function App() {
           >
             View Bill
           </span>
-          <input
+          {/* <input
             required
             type="text"
             placeholder="Bill number"
@@ -177,9 +177,9 @@ export default function App() {
               height: "2rem",
               maxWidth: 100,
               paddingLeft: 8,
-              // display: !viewBill && "none",
+              // display: "none",
             }}
-          />
+          /> */}
           {/* <button type="submit">submit</button> */}
         </form>
       </div>
