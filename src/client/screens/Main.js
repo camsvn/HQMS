@@ -29,7 +29,7 @@ export default function App() {
 
   const [message, setMessage] = useState([]);
   const [windowRef, setWindowRef] = useState({});
-  const [viewBill, setViewBill] = useState(true);
+  const [viewAll, setViewAll] = useState(false);
   // const [billInput, setBillInput] = useState("");
 
   useLayoutEffect(() => {
@@ -68,8 +68,8 @@ export default function App() {
   }, [docControl]);
 
   useEffect(() => {
-    localStorage.setItem("labresultsview", viewBill);
-  }, [viewBill]);
+    localStorage.setItem("viewAll", viewAll);
+  }, [viewAll]);
 
   const countInc = (doctorID, token) => {
     // console.log(docControl);
@@ -122,8 +122,8 @@ export default function App() {
           onClick={() => {
             let ref = window.open(
               `${window.location.href}display`,
-              "tokenView"
-              // `left=${screen.width}, height=${screen.height}, width=${screen.width}`
+              "tokenView",
+              `left=${screen.width}, height=${screen.height}, width=${screen.width}`
             );
             setWindowRef(ref);
           }}
@@ -147,9 +147,9 @@ export default function App() {
             position: "absolute",
             right: 25,
             top: 20,
-            // display: "none",
-            // top: viewBill ? 20 : 30,
-            // transform: viewBill ? "translateX(0)" : "translateX(150px)",
+            display: "none",
+            // top: viewAll ? 20 : 30,
+            // transform: viewAll ? "translateX(0)" : "translateX(150px)",
             // transition:
             //   "transform 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05) 0s",
           }}
@@ -157,14 +157,14 @@ export default function App() {
           <input
             type="checkbox"
             style={{ marginRight: 5 }}
-            checked={viewBill}
-            onChange={() => setViewBill(!viewBill)}
+            checked={viewAll}
+            onChange={() => setViewAll(!viewAll)}
           />
           <span
             className="view-bill"
             style={{ color: "white", marginRight: 10 }}
           >
-            View Bill
+            View All Doctors
           </span>
           {/* <input
             required

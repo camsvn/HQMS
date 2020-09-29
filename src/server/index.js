@@ -35,7 +35,7 @@ db.authenticate()
 var io = socket(server);
 io.on("connection", (socket) => {
   var client = socket.handshake.address.slice(7);
-  console.log(`${client} Socket Connected`, socket.id);
+  // console.log(`${client} Socket Connected`, socket.id);
 
   // socket.emit("token-update", { localDS });
   socket.on("syncdb", async () => {
@@ -52,7 +52,7 @@ io.on("connection", (socket) => {
 
   socket.on("getlabresults", async () => {
     const [result, metadata] = await db.query(queries.ltestResult);
-    console.log(result.length);
+    // console.log(result.length);
     result.length && io.emit("labresults", JSON.stringify(result));
   });
 
@@ -163,7 +163,7 @@ io.on("connection", (socket) => {
   // });
 
   socket.on("disconnect", () => {
-    console.log(`${client} Socket Disonnected`, socket.id);
+    // console.log(`${client} Socket Disonnected`, socket.id);
   });
 });
 

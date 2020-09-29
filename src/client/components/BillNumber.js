@@ -6,9 +6,10 @@ var socket;
 var fetchtimer;
 
 export default function BillNumber() {
-  const [labresultsview, setLabResultsView] = useState(
-    JSON.parse(localStorage.getItem("labresultsview"))
-  );
+  // const [labresultsview, setLabResultsView] = useState(
+  //   JSON.parse(localStorage.getItem("labresultsview"))
+  // );
+  const [labresultsview, setLabResultsView] = useState(true);
   const [labResults, setLabResults] = useState();
 
   function fnfetchtimer() {
@@ -18,19 +19,19 @@ export default function BillNumber() {
   useEffect(() => {
     socket = socketIOClient(ENDPOINT);
 
-    let timer = setInterval(() => {
-      const labresultslocal = JSON.parse(
-        localStorage.getItem("labresultsview")
-      );
-      setLabResultsView(labresultslocal);
-    }, 500);
+    // let timer = setInterval(() => {
+    //   const labresultslocal = JSON.parse(
+    //     localStorage.getItem("labresultsview")
+    //   );
+    //   setLabResultsView(labresultslocal);
+    // }, 500);
 
     socket.on("labresults", (data) => {
       setLabResults(JSON.parse(data));
     });
 
     return () => {
-      clearInterval(timer);
+      // clearInterval(timer);
       clearInterval(fetchtimer);
     };
   }, []);

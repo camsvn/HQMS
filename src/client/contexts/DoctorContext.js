@@ -92,6 +92,7 @@ export default function DoctorContextProvider({ children }) {
     if (!docControl.includes(id)) {
       var addDocArr = [...docControl, id];
       setDocControl(addDocArr);
+      // Add isVisibe Property to Object
       var refid = id;
       var indexToModify = doctors.findIndex(
         ({ doctorID }) => doctorID === refid
@@ -109,6 +110,7 @@ export default function DoctorContextProvider({ children }) {
   const rmDoc = (id) => {
     var rmDocArr = docControl.filter((refid) => refid !== id);
     setDocControl(rmDocArr);
+    // Set isVisible Property to false
     var refid = id;
     var indexToModify = doctors.findIndex(({ doctorID }) => doctorID === refid);
     var toggleVisible = { ...doctors[indexToModify], isVisible: false };

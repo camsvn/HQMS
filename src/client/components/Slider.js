@@ -3,17 +3,18 @@ import Slider from "infinite-react-carousel";
 // import data from "../constants/mockData";
 
 const SimpleSlider = () => {
+  //Filter only isVisibe Doctors to state.
   var locStoData = JSON.parse(localStorage.getItem("doctor"));
-  var newarray = locStoData.filter((item) => item.isVisible === true);
-  const [doctors, setDoctors] = useState(newarray ? newarray : []);
+  // var newarray = locStoData.filter((item) => item.isVisible === true);
+  const [doctors, setDoctors] = useState(locStoData ? locStoData : []);
   // const [doctors, setDoctors] = useState([]);
 
   useLayoutEffect(() => {
     var timer = setInterval(() => {
       var locStoData = JSON.parse(localStorage.getItem("doctor"));
-      var newarray = locStoData.filter((item) => item.isVisible === true);
+      // var newarray = locStoData.filter((item) => item.isVisible === true);
       // console.log(newarray);
-      setDoctors(newarray);
+      setDoctors(locStoData);
     }, 100);
     return () => {
       clearInterval(timer);
@@ -27,30 +28,33 @@ const SimpleSlider = () => {
           <div className="slider-view" key={index}>
             <div className="box">
               {item.map((data) => {
-                if (data.isVisible)
-                  return (
-                    <div key={data.doctorID} className="disptoken-container">
-                      <div className="token-card">
-                        <img
-                          src="https://randomuser.me/api/portraits/lego/3.jpg"
-                          alt="Doctor DP"
-                        />
-                        <div className="token-name">
-                          <h1>{data.docName}</h1>
-                        </div>
-                        <div className="token-number">
-                          <span>{data.token}</span>
-                        </div>
-                      </div>
-                      <div
-                        className={
-                          data.onBreak ? "doctor-msg" : "doctor-msg-close"
+                // if (data.isVisible && data.token > 0)
+                return (
+                  <div key={data.doctorID} className="disptoken-container">
+                    <div className="token-card">
+                      <img
+                        src={`../../../public/img/${data.token}.jpg`}
+                        onError={(e) =>
+                          (e.target.src = "../../../public/img/default.jpg")
                         }
-                      >
-                        <span>{data.onBreakComment}</span>
+                        alt="Doctor DP"
+                      />
+                      <div className="token-name">
+                        <h1>{data.docName}</h1>
+                      </div>
+                      <div className="token-number">
+                        <span>{data.token}</span>
                       </div>
                     </div>
-                  );
+                    <div
+                      className={
+                        data.onBreak ? "doctor-msg" : "doctor-msg-close"
+                      }
+                    >
+                      <span>{data.onBreakComment}</span>
+                    </div>
+                  </div>
+                );
               })}
             </div>
           </div>
@@ -67,7 +71,7 @@ const settings = {
   arrowsBlock: false,
   autoplay: true,
   autoplaySpeed: 5200,
-  dots: false,
+  dots: true,
   duration: 200,
   // overScan: 1,
   pauseOnHover: false,
