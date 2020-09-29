@@ -47,7 +47,15 @@ export default function BillNumber() {
       className="bill-view"
       style={{ display: labresultsview ? "" : "none" }}
     >
-      <h1 style={{ margin: "10px 0" }}>Lab Results</h1>
+      <h1
+        style={{
+          padding: "10px 0",
+          background: "#29a9e0",
+          textTransform: "uppercase",
+        }}
+      >
+        Lab Results Ready
+      </h1>
       <div className="test-results">
         {labResults &&
           labResults.map((item, _idx) => (

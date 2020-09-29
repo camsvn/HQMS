@@ -5,3 +5,5 @@ dist
 HQMS_Workspace.code-workspace
 yarn.lock
 .env
+
+public/img/DoctorsMap.*

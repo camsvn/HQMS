@@ -56,11 +56,12 @@
   height: 82vh;
   min-height: 645px;
   width: 17.7vw;
-  background-color: rgb(112, 112, 112);
+  /* background-color: rgb(112, 112, 112); */
   border-bottom: 1px solid rgb(49, 58, 63);
   text-align: center;
   color: snow;
   overflow-y: auto;
+  background-color: rgb(236 236 236);
   /* transform: translateX(17.6vw); */
   /* display: none; */
 }
@@ -71,12 +72,14 @@
 }
 
 .bill-view p {
-  font-size: 1.5rem;
-  padding: 0.25rem 0;
+  font-size: 2.5rem;
+  padding: 0.34rem;
   border-top: 1px solid rgb(49, 58, 63);
   overflow: visible;
   overflow-wrap: break-word;
   white-space: nowrap;
+  color: #c53535;
+  letter-spacing: 5px;
 }
 
 @keyframes amarquee {
@@ -125,8 +128,10 @@ body {
 }
 
 .logo {
-  width: 5rem;
-  height: 5rem;
+  height: var(--header-height);
+  width: var(--header-height);
+  min-width: 5rem;
+  min-height: 5rem;
   position: absolute;
 }
 

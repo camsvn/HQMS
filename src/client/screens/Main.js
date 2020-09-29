@@ -121,9 +121,9 @@ export default function App() {
           className="open-window"
           onClick={() => {
             let ref = window.open(
-              `${window.location.href}display`,
-              "tokenView",
-              `left=${screen.width}, height=${screen.height}, width=${screen.width}`
+              `${window.location.href}display`
+              // "tokenView",
+              // `left=${screen.width}, height=${screen.height}, width=${screen.width}`
             );
             setWindowRef(ref);
           }}

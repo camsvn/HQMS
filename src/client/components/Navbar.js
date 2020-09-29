@@ -16,7 +16,11 @@ export default function Navbar() {
     "https://www.zilliondesigns.com/images/portfolio/healthcare-hospital/iStock-471629610-Converted.png";
   return (
     <nav id="navbar">
-      <img src={logo} alt="Hospital Logo" className="logo" />
+      <img
+        src={require("../../../public/img/logo.jpg")}
+        alt="Hospital Logo"
+        className="logo"
+      />
       <h1 className="title">LEO HOSPITAL</h1>
       <div className="clock-wrapper">
         <span>{time.slice(0, 2)}</span>

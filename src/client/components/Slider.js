@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import Slider from "infinite-react-carousel";
-// import data from "../constants/mockData";
 
 const SimpleSlider = () => {
   //Filter only isVisibe Doctors to state.
@@ -32,13 +31,7 @@ const SimpleSlider = () => {
                 return (
                   <div key={data.doctorID} className="disptoken-container">
                     <div className="token-card">
-                      <img
-                        src={`../../../public/img/${data.token}.jpg`}
-                        onError={(e) =>
-                          (e.target.src = "../../../public/img/default.jpg")
-                        }
-                        alt="Doctor DP"
-                      />
+                      <DoctorImg id={data.doctorID} />
                       <div className="token-name">
                         <h1>{data.docName}</h1>
                       </div>
@@ -64,6 +57,16 @@ const SimpleSlider = () => {
       )}
     </Slider>
   );
+};
+
+const DoctorImg = ({ id }) => {
+  var imgSrc;
+  try {
+    imgSrc = require("../../../public/img/" + id + ".jpg");
+  } catch (e) {
+    imgSrc = require("../../../public/img/default.jpg");
+  }
+  return <img src={imgSrc} alt="Doctor DP" />;
 };
 
 const settings = {
