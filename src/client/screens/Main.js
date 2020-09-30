@@ -114,6 +114,20 @@ export default function App() {
 
   return (
     <div className="main noselect">
+      <a
+        href="http://decare.team"
+        target="signature"
+        style={{
+          position: "absolute",
+          textDecoration: "none",
+          color: "#45515840",
+          top: 28,
+          right: 0,
+          paddingRight: 10,
+        }}
+      >
+        Powered By DeCare Software Soutions
+      </a>
       {/* Nav Bar */}
       <div className="btnContainer">
         <button
