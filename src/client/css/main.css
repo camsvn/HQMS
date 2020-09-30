@@ -36,6 +36,7 @@
   background-color: rgb(255, 255, 240);
   background-color: rgb(238, 238, 157);
   border-radius: 3px;
+  max-width: 450px;
 }
 
 .message-board-container {
@@ -62,7 +63,7 @@
   background-color: rgb(209, 179, 236);
   height: max-content;
   min-height: 46px;
-  width: 100%;
+  /* width: 100%; */
   margin: initial;
   padding: 2px 7px;
   /* line-height: 18px; */

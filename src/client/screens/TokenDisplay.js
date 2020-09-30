@@ -32,19 +32,14 @@ export default function TokenDisplay() {
         <Navbar />
       </div>
       <div className="appc">
-        {/* <DBody /> */}
         <Slider />
         <BillNumber />
-        {/* <div className="bill-view">
-          <h1 style={{ marginTop: 10 }}>Bill Number</h1>
-          <p>Amal</p>
-          <p>Amal</p>
-          <p>Amal</p>
-          <p>Amal</p>
-        </div> */}
       </div>
       <div className="appc">
         <Marquee />
+        <a className="poweredby" href="http://decare.team" target="signature">
+          Powered by DeCare Software Solutions
+        </a>
       </div>
     </div>
   );

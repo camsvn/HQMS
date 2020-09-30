@@ -49,13 +49,24 @@ export default function BillNumber() {
     >
       <h1
         style={{
-          padding: "10px 0",
-          background: "#29a9e0",
+          padding: "10px 0 5px",
+          background: "#2994e0",
           textTransform: "uppercase",
         }}
       >
         Lab Results Ready
       </h1>
+      <h2
+        style={{
+          padding: "5px 0",
+          background: "#2994e0",
+          fontWeight: 700,
+          letterSpacing: 2,
+          textTransform: "uppercase",
+        }}
+      >
+        Op Number / Name
+      </h2>
       <div className="test-results">
         {labResults &&
           labResults.map((item, _idx) => (

@@ -62,6 +62,7 @@
   color: snow;
   overflow-y: auto;
   background-color: rgb(236 236 236);
+  /* background: linear-gradient(to bottom left, #ada996, #f2f2f2, #dbdbdb, #eaeaea) */
   /* transform: translateX(17.6vw); */
   /* display: none; */
 }
@@ -73,13 +74,14 @@
 
 .bill-view p {
   font-size: 2.5rem;
-  padding: 0.34rem;
+  padding: 0.248rem;
   border-top: 1px solid rgb(49, 58, 63);
-  overflow: visible;
-  overflow-wrap: break-word;
-  white-space: nowrap;
+  /* overflow: visible; */
+  /* overflow-wrap: break-word; */
+  /* white-space: nowrap; */
   color: #c53535;
   letter-spacing: 5px;
+  font-weight: 700;
 }
 
 @keyframes amarquee {
@@ -99,6 +101,17 @@
   /* align-items: center; */
   /* border: 1px solid blue; */
   background-color: rgb(112, 112, 112);
+  background: linear-gradient(to right, #0f2027, #203a43, #11232b);
+}
+
+.poweredby {
+  position: absolute;
+  bottom: 0px;
+  color: #f5f5dc0a;
+  width: 100%;
+  text-align: right;
+  text-decoration: none;
+  font-size: 12px;
 }
 
 body {
@@ -125,6 +138,7 @@ body {
   background-color: rgb(112, 112, 112);
   display: flex;
   align-items: center;
+  background: linear-gradient(to right, #0f2027, #203a43, #11232b);
 }
 
 .logo {
@@ -213,7 +227,9 @@ body {
   /* margin: 0; */
   /* padding: 0 2rem; */
   /* background-color: azure; */
-  background-color: rgb(201, 237, 241);
+  /* background-color: rgb(201, 237, 241); */
+  background-color: rgb(196 217 226);
+  /* background: linear-gradient(to right, #ada996, #f2f2f2, #dbdbdb, #eaeaea); */
   box-shadow: var(--card-shadow);
   display: flex;
   justify-content: space-between;
