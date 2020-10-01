@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
     await Token.sync();
     // console.log("Syncing DB");
     const [result, metadata] = await db.query(queries.getUniqueDoc);
-    result.length &&
+    result.length > 0 &&
       result.map(async (item) => {
         const id = await Token.create(item);
         // console.log(`${item.docName}'s ID is ${id}`);
@@ -57,7 +57,7 @@ io.on("connection", (socket) => {
   });
 
   //Corn Scheduler
-  cron.schedule("0 1 0 * * *", () => {
+  cron.schedule("0 0 0 * * *", () => {
     io.emit("sync-dbupdated");
     io.emit("dbupdated");
   });
@@ -82,9 +82,11 @@ io.on("connection", (socket) => {
         date: NOW(),
       },
       order: ["docName"],
-    }).then((data) => {
-      socket.emit("doc", JSON.stringify(data, null, 2));
-    });
+    })
+      .then((data) => {
+        socket.emit("doc", JSON.stringify(data, null, 2));
+      })
+      .catch((e) => console.log(e));
   });
 
   // socket.on("dbupdate", (txt) => {
@@ -102,10 +104,12 @@ io.on("connection", (socket) => {
           doctorID,
         },
       }
-    ).then((data) => {
-      io.emit("dbupdated");
-      io.emit("client-syncdb");
-    });
+    )
+      .then((data) => {
+        io.emit("dbupdated");
+        io.emit("client-syncdb");
+      })
+      .catch((e) => console.log(e));
   });
 
   socket.on("onBreak-update", (data) => {
@@ -119,7 +123,9 @@ io.on("connection", (socket) => {
           doctorID,
         },
       }
-    ).then((data) => io.emit("dbupdated"));
+    )
+      .then((data) => io.emit("dbupdated"))
+      .catch((e) => console.log(e));
   });
 
   socket.on("onBreakMsg-submit", (data) => {
@@ -133,7 +139,9 @@ io.on("connection", (socket) => {
           doctorID,
         },
       }
-    ).then((data) => io.emit("dbupdated"));
+    )
+      .then((data) => io.emit("dbupdated"))
+      .catch((e) => console.log(e));
   });
 
   // socket.on("increment", (data) => {

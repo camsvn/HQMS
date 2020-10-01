@@ -44,12 +44,12 @@ function getTime() {
   const d = new Date();
   var hour = d.getHours();
   var min = d.getMinutes();
-  if (hour > 12) {
+  if (hour >= 12) {
     ampm = "PM";
-    hour = ("0" + (hour - 12)).slice(-2);
+    hour === 12 ? (hour = 12) : (hour = ("0" + (hour - 12)).slice(-2));
   } else {
     ampm = "AM";
-    hour = ("0" + hour).slice(-2);
+    hour === 0 ? (hour = 12) : (hour = ("0" + hour).slice(-2));
   }
   if (min < 10) min = ("0" + min).slice(-2);
   // console.log(`${hour} : ${min} ${ampm}`);
