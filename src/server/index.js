@@ -10,10 +10,12 @@ const config = require("./config/appConfig");
 const db = require("./config/database");
 const queries = require("./models/queries");
 const Token = require("./models/token");
-const mockData = require("./models/mockData");
+const { sequelize } = require("./models/token");
+// const mockData = require("./models/mockData");
 
-const localDS = [...mockData];
+// const localDS = [...mockData];
 const messages = [];
+var prevResult = "";
 
 const app = express();
 
@@ -38,16 +40,36 @@ io.on("connection", (socket) => {
   // console.log(`${client} Socket Connected`, socket.id);
 
   // socket.emit("token-update", { localDS });
+
+  // socket.on("syncdb", async () => {
+  //   await Token.sync();
+  //   const [result, metadata] = await db.query(queries.getUniqueDoc);
+  //   result.length &&
+  //     result.map(async (item) => {
+  //       const id = await Token.create(item);
+  //       // console.log(`${item.docName}'s ID is ${id}`);
+  //       io.emit("dbupdated");
+  //     });
+  // });
+
   socket.on("syncdb", async () => {
     await Token.sync();
-    // console.log("Syncing DB");
     const [result, metadata] = await db.query(queries.getUniqueDoc);
-    result.length > 0 &&
-      result.map(async (item) => {
-        const id = await Token.create(item);
-        // console.log(`${item.docName}'s ID is ${id}`);
-        io.emit("dbupdated");
-      });
+    // console.log("Prev Result", prevResult);
+    // console.log("Result", result);
+    if (result.length) {
+      if (JSON.stringify(prevResult) !== JSON.stringify(result)) {
+        prevResult = result;
+        result.length &&
+          result.map(async (item) => {
+            const id = await Token.create(item);
+            // console.log(`${item.docName}'s ID is ${id}`);
+            io.emit("dbupdated");
+          });
+      } else {
+        // console.log("collision found");
+      }
+    }
   });
 
   socket.on("getlabresults", async () => {
@@ -107,7 +129,8 @@ io.on("connection", (socket) => {
     )
       .then((data) => {
         io.emit("dbupdated");
-        io.emit("client-syncdb");
+        socket.emit("client-syncdb");
+        // io.emit("client-syncdb"); // belived to be buggy create duplicates
       })
       .catch((e) => console.log(e));
   });
