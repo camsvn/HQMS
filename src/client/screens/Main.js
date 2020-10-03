@@ -309,7 +309,7 @@ export default function App() {
             </div>
           </div>
         </div>
-        <div className="doctor-selection-container custom-scroll">
+        <div className="doctor-selection-container">
           <div>
             <h2>Active Doctors</h2>
             <span>{`Total: ${doctors.length}`}</span>

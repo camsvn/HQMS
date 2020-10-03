@@ -49,6 +49,7 @@
   /* background: rgb(255, 255, 255); */
   overflow-y: auto;
   margin-bottom: 10px;
+  scrollbar-width: thin;
 }
 
 .message-container {
@@ -155,6 +156,7 @@
 .control-panel-wrapper {
   margin: 1rem 0;
   text-align: center;
+  scrollbar-width: thin;
 }
 
 .control-panel h2 {
@@ -323,6 +325,7 @@
   overflow: auto;
   border-radius: 3px;
   /* padding-top: 3em; */
+  scrollbar-width: thin;
 }
 
 .doctor-selection-container div {
