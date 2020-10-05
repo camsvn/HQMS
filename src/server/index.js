@@ -130,7 +130,6 @@ io.on("connection", (socket) => {
       .then((data) => {
         io.emit("dbupdated");
         socket.emit("client-syncdb");
-        // io.emit("client-syncdb"); // belived to be buggy create duplicates
       })
       .catch((e) => console.log(e));
   });
@@ -204,11 +203,13 @@ app.get("/api/getUsername", (req, res) =>
 );
 
 app.get("/api/dbupdate", async (req, res) => {
-  res.status(200).send("Update Request Received");
   // console.log("Recived Http Request");
-  await Token.sync();
-  // console.log("Table Token Model Created");
+  res.status(200).send("Update Request Received");
+  // io.emit("client-syncdb");
+
+  Token.sync();
   const [result, metadata] = await db.query(queries.getUniqueDoc);
+  // console.log(result);
   result.length &&
     result.map(async (item) => {
       const id = await Token.create(item);
