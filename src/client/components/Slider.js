@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import Slider from "infinite-react-carousel";
+import speak from "./Speech";
 
 const SimpleSlider = () => {
   //Filter only isVisibe Doctors to state.

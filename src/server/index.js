@@ -207,15 +207,32 @@ app.get("/api/dbupdate", async (req, res) => {
   res.status(200).send("Update Request Received");
   // io.emit("client-syncdb");
 
-  Token.sync();
+  // Token.sync();
+  // const [result, metadata] = await db.query(queries.getUniqueDoc);
+  // // console.log(result);
+  // result.length &&
+  //   result.map(async (item) => {
+  //     const id = await Token.create(item);
+  //     // console.log(`${item.docName}'s ID is ${id}`);
+  //     io.emit("dbupdated");
+  //   });
+  await Token.sync();
   const [result, metadata] = await db.query(queries.getUniqueDoc);
-  // console.log(result);
-  result.length &&
-    result.map(async (item) => {
-      const id = await Token.create(item);
-      // console.log(`${item.docName}'s ID is ${id}`);
-      io.emit("dbupdated");
-    });
+  // console.log("Prev Result", prevResult);
+  // console.log("Result", result);
+  if (result.length) {
+    if (JSON.stringify(prevResult) !== JSON.stringify(result)) {
+      prevResult = result;
+      result.length &&
+        result.map(async (item) => {
+          const id = await Token.create(item);
+          // console.log(`${item.docName}'s ID is ${id}`);
+          io.emit("dbupdated");
+        });
+    } else {
+      // console.log("collision found");
+    }
+  }
 });
 
 app.get("/api/getDoctors", async (req, res) => {
