@@ -147,7 +147,8 @@ export default () => {
         <ButtonBack>Back</ButtonBack>
         <ButtonNext>Next</ButtonNext>
         <ButtonLast>Last</ButtonLast> */}
-        <DotGroup dotNumbers />
+        {/* <DotGroup dotNumbers className="dotGroup" /> */}
+        <DotGroup className="dotGroup" />
       </CarouselProvider>
     </div>
   );
