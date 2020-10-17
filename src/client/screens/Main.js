@@ -137,7 +137,7 @@ export default function App() {
             let ref = window.open(
               `${window.location.href}display`,
               "tokenView",
-              `left=${screen.width}, height=${screen.height}, width=${screen.width}`
+              // `left=${screen.width}, height=${screen.height}, width=${screen.width}`
             );
             setWindowRef(ref);
           }}
@@ -242,7 +242,11 @@ export default function App() {
                       <div className="doc-counter-mainview">
                         <h3>{getDoctorProp(id, "name")}</h3>
                         {getDoctorProp(id, "onBreak") && (
-                          <p>onBreak: {getDoctorProp(id, "comment")}</p>
+                          <p>
+                            onBreak:
+                            {' '}
+                            {getDoctorProp(id, "comment")}
+                          </p>
                         )}
                       </div>
                       <button

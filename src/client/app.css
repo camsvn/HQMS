@@ -276,6 +276,7 @@ body {
 .token-card h1 {
   margin: 0 1rem;
   line-height: initial;
+  text-align: initial;
   /* margin-block-start: 10px; */
   /* border: 2px solid green; */
   /* margin-block-end: initial; */

@@ -1,13 +1,31 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
-import Slider from "infinite-react-carousel";
-import speak from "./Speech";
+// import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,DotGroup,ImageWithZoom, ButtonPlay, ButtonFirst, ButtonLast } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 
-const SimpleSlider = () => {
+import {
+  ButtonBack,
+  ButtonFirst,
+  ButtonLast,
+  ButtonNext,
+  ButtonPlay,
+  CarouselProvider,
+  Dot,
+  DotGroup,
+  ImageWithZoom,
+  Slide,
+  Slider,
+} from 'pure-react-carousel';
+
+const TOKENSINSLIDE = 3;
+
+// import s from 'pure-react-carousel/dist/react-carousel.es.css';
+
+export default () => {
+
   //Filter only isVisibe Doctors to state.
   var locStoData = JSON.parse(localStorage.getItem("doctor"));
   // var newarray = locStoData.filter((item) => item.isVisible === true);
   const [doctors, setDoctors] = useState(locStoData ? locStoData : []);
-  // const [doctors, setDoctors] = useState([]);
 
   useLayoutEffect(() => {
     var timer = setInterval(() => {
@@ -15,19 +33,30 @@ const SimpleSlider = () => {
       // var newarray = locStoData.filter((item) => item.isVisible === true);
       // console.log(newarray);
       setDoctors(locStoData);
-    }, 100);
+    }, 500);
     return () => {
       clearInterval(timer);
     };
   }, []);
 
   return (
-    <Slider {...settings} className="slider">
-      {doctors.length ? (
-        splitEvery(doctors, 3).map((item, index) => (
-          <div className="slider-view" key={index}>
-            <div className="box">
-              {item.map((data) => {
+    <div style={{width:'100%', textAlign:"center", margin: "10px auto"}}>
+      <CarouselProvider
+        visibleSlides={1}
+        // totalSlides={doctors.length && Math.ceil(doctors.length/TOKENSINSLIDE)}
+        totalSlides={4}
+        naturalSlideWidth={4}
+        naturalSlideHeight={2}
+        isPlaying
+        touchEnabled={false}
+        dragEnabled={false}
+      >
+        <Slider>
+          {doctors.length ? 
+          splitEvery(doctors, TOKENSINSLIDE).map((item, index) => (
+            <Slide index={index} key={index}>
+              <div className="box">
+                {item.map((data) => {
                 // if (data.isVisible && data.token > 0)
                 return (
                   <div key={data.doctorID} className="disptoken-container">
@@ -50,13 +79,77 @@ const SimpleSlider = () => {
                   </div>
                 );
               })}
+              </div>
+            </Slide>
+          )) : <Slide />} 
+        </Slider>
+        {/* <Slider>
+          <Slide index={0}>
+            <div className="box">
+              <div className="disptoken-container">
+                <div className="token-card">
+                  <DoctorImg id={11} />
+                  <div className="token-name">
+                    <h1>Amal S</h1>
+                  </div>
+                  <div className="token-number">
+                    <span>13</span>
+                  </div>
+                </div>
+                <div
+                  className="doctor-msg-close"
+                >
+                  <span>ON BREAK</span>
+                </div>
+              </div>
+
+              <div className="disptoken-container">
+                <div className="token-card">
+                  <DoctorImg id={11} />
+                  <div className="token-name">
+                    <h1>Amal S</h1>
+                  </div>
+                  <div className="token-number">
+                    <span>13</span>
+                  </div>
+                </div>
+                <div
+                  className="doctor-msg"
+                >
+                  <span>ON BREAK</span>
+                </div>
+              </div>
+
+              <div className="disptoken-container">
+                <div className="token-card">
+                  <DoctorImg id={11} />
+                  <div className="token-name">
+                    <h1>Ajith S</h1>
+                  </div>
+                  <div className="token-number">
+                    <span>12</span>
+                  </div>
+                </div>
+                <div
+                  className="doctor-msg-close"
+                >
+                  <span>ON BREAK</span>
+                </div>
+              </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <div />
-      )}
-    </Slider>
+          </Slide>
+          <Slide index={1}>I am the second Slide.</Slide>
+          <Slide index={2}>I am the third Slide.</Slide>
+          <Slide index={3}>I am the third Slide.</Slide>
+        </Slider> */}
+        {/* <ButtonPlay childrenPlaying="Pause" childrenPaused="Play" /> */}
+        {/* <ButtonFirst>First</ButtonFirst>
+        <ButtonBack>Back</ButtonBack>
+        <ButtonNext>Next</ButtonNext>
+        <ButtonLast>Last</ButtonLast> */}
+        <DotGroup dotNumbers />
+      </CarouselProvider>
+    </div>
   );
 };
 
@@ -70,23 +163,9 @@ const DoctorImg = ({ id }) => {
   return <img src={imgSrc} alt="Doctor DP" />;
 };
 
-const settings = {
-  arrows: false,
-  arrowsBlock: false,
-  autoplay: true,
-  autoplaySpeed: 5200,
-  dots: true,
-  duration: 200,
-  // overScan: 1,
-  pauseOnHover: false,
-  swipe: false,
-};
-
 const splitEvery = (array, length) =>
   array.reduce((result, item, index) => {
     if (index % length === 0) result.push([]);
     result[Math.floor(index / length)].push(item);
     return result;
   }, []);
-
-export default SimpleSlider;
