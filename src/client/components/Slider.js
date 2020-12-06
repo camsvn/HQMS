@@ -43,8 +43,8 @@ export default () => {
     <div style={{width:'100%', textAlign:"center", margin: "10px auto"}}>
       <CarouselProvider
         visibleSlides={1}
-        // totalSlides={doctors.length && Math.ceil(doctors.length/TOKENSINSLIDE)}
-        totalSlides={4}
+        totalSlides={doctors.length && Math.ceil(doctors.length/TOKENSINSLIDE)}
+        // totalSlides={4}
         naturalSlideWidth={4}
         naturalSlideHeight={2}
         isPlaying
@@ -52,6 +52,7 @@ export default () => {
         dragEnabled={false}
       >
         <Slider>
+          {/* {console.log(doctors.length)} */}
           {doctors.length ? 
           splitEvery(doctors, TOKENSINSLIDE).map((item, index) => (
             <Slide index={index} key={index}>
