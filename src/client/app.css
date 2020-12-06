@@ -287,6 +287,7 @@ body {
   line-height: initial;
   /* background-color: black; */
   background-color: rgb(196, 41, 41);
+  background-color: #e3b757;
   color: rgb(30, 30, 31);
   /* background-color: rgb(42, 116, 165);
   color: rgb(239, 247, 252); */
@@ -311,6 +312,7 @@ body {
 
 .doctor-msg {
   background: rgb(24, 24, 24);
+  background: #726a67;
   height: 4rem;
   min-height: 3rem;
   display: flex;
@@ -332,7 +334,9 @@ body {
 }
 
 .doctor-msg span {
-  color: brown;
+  /* color: brown;
+  color: #759eb2; */
+  color: #e3b757;
   font-weight: 800;
   font-size: 2.8rem;
   text-transform: uppercase;
@@ -410,7 +414,7 @@ body {
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  border: 3px solid rgb(196 217 226);
+  border: 3px solid rgb(196, 217, 226);
   /* border: 3px solid #2ecc71; */
   transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
@@ -418,12 +422,12 @@ body {
 .dotGroup button:disabled {
   width: 45px;
   height: 45px;
-  /* background: rgb(236 236 236);
-  border: 3px solid rgb(236 236 236); */
+  background: rgb(236, 236, 236);
+  border: 3px solid rgb(236, 236, 236);
   /* background: #2ecc71;
   border: 3px solid #2ecc71; */
-  background: rgb(196, 41, 41);
-  border: 3px solid rgb(196, 41, 41);
+  /* background: rgb(196, 41, 41);
+  border: 3px solid rgb(196, 41, 41); */
 }
 
 /* .dotGroup button:disabled:after {
