@@ -64,7 +64,7 @@
   background-color: rgb(209, 179, 236);
   height: max-content;
   min-height: 46px;
-  /* width: 100%; */
+  width: 87%;
   margin: initial;
   padding: 2px 7px;
   /* line-height: 18px; */
@@ -79,10 +79,14 @@
   height: max-content;
   user-select: all;
   cursor: copy;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  width: 100%;
 }
 
 .message-container button {
-  flex: 1;
+  /* flex: 1; */
   cursor: pointer;
   color: whitesmoke;
   /* padding: 10px; */
