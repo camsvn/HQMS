@@ -83,6 +83,7 @@
   word-wrap: break-word;
   hyphens: auto;
   width: 100%;
+  font-family: 'Manjari', sans-serif;
 }
 
 .message-container button {

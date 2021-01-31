@@ -26,6 +26,7 @@ html {
 
 * {
   margin: 0;
+  font-family: 'Noto Sans JP', sans-serif;
 }
 .marquee-scroll-left {
   position: relative;
@@ -40,6 +41,8 @@ html {
   white-space: nowrap;
   display: flex;
   align-items: center;
+  font-family: 'Manjari', sans-serif;
+  font-weight: 700;
   /* width: 100%; */
   /* direction: rtl; */
   /* line-height: 50px; */
