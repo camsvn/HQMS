@@ -91,7 +91,7 @@
   cursor: pointer;
   color: whitesmoke;
   /* padding: 10px; */
-  /* width: 40%; */
+  width: 40px;
   font-size: larger;
   border: none;
   /* border-radius: 5px; */
@@ -118,9 +118,11 @@
   /* border: 1px solid greenyellow; */
 }
 
-.message-box input {
+.message-box textarea {
   height: 6.2vh;
+  max-height: 6.2vh;
   width: 80%;
+  max-width: 80%;
   border: 2px solid black;
   border-radius: 5px;
   margin-right: 5px;
@@ -233,6 +235,7 @@
   /* border: 1px solid snow; */
   /* vertical-align: middle; */
   font-size: 3rem;
+  transform: translateY(-4px);
 }
 
 /* .doc-counter div:nth-child(6)  */
@@ -248,7 +251,10 @@
 .token-counter-delete button {
   cursor: pointer;
   background: rgb(240, 74, 68);
-  padding-right: 5px;
+  /* padding-right: 5px; */
+  width: 50px;
+  color: white;
+  font-size: 22px;
 }
 
 .token-counter-delete button:hover {
@@ -260,6 +266,16 @@
   width: 30px;
   background: rgb(4, 161, 4);
 }
+
+.toggle-arrow {
+  display: inline-block;
+  transition: all 0.5s;
+}
+
+.toggle-active{
+  transform: rotate(180deg);
+}
+
 
 .collapse-control:hover {
   background: rgb(28, 143, 28);
@@ -276,6 +292,7 @@
   justify-content: center;
   /* display: none; */
   /* transition: display 0.2s ease-out; */
+  transform: translateY(0px);
 }
 
 .collapse-container-close {

@@ -237,7 +237,13 @@ export default function App() {
                           updateDocProps(id, !getDoctorProp(id, "collapse"))
                         }
                       >
-                        ▼
+                        <span 
+                          className={
+                            getDoctorProp(id, "collapse")
+                              ? "toggle-arrow toggle-active"
+                              : "toggle-arrow"
+                          }
+                        >▼</span>
                       </button>
                       <div className="doc-counter-mainview">
                         <h3>{getDoctorProp(id, "name")}</h3>
@@ -272,8 +278,9 @@ export default function App() {
                           onClick={() => {
                             rmDoc(id);
                           }}
+                          alt="Delete"
                         >
-                          Delete
+                          <i class="ri-delete-bin-3-line"></i>
                         </button>
                       </div>
                     </div>
@@ -347,8 +354,8 @@ const Msg = ({ msg, id, setMessage, state }) => {
       <div className="message">
         <p>{msg}</p>
       </div>
-      <button type="submit" onClick={() => deleteMsg(id)}>
-        Del
+      <button type="submit" onClick={() => deleteMsg(id)} alt="Del">
+        <i class="ri-delete-bin-6-line"></i>
       </button>
     </div>
   );
@@ -372,12 +379,18 @@ const MsgForm = ({ setMessage, state }) => {
 
   return (
     <form className="message-box" onSubmit={(e) => handleSubmit(e)}>
-      <input
+      {/* <input
         required
         type="text"
         value={msgInput}
         onChange={(e) => handleTextChange(e)}
-      />
+      /> */}
+      <textarea
+        required
+        type="text"
+        value={msgInput}
+        placeholder="Enter your message here"
+        onChange={(e) => handleTextChange(e)}></textarea>
       <button type="submit">Add</button>
     </form>
   );
