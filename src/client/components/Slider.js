@@ -16,6 +16,8 @@ import {
   Slider,
 } from 'pure-react-carousel';
 
+import speak from "./Speech";
+
 const TOKENSINSLIDE = 3;
 
 // import s from 'pure-react-carousel/dist/react-carousel.es.css';
@@ -32,12 +34,25 @@ export default () => {
       var locStoData = JSON.parse(localStorage.getItem("doctor"));
       // var newarray = locStoData.filter((item) => item.isVisible === true);
       // console.log(newarray);
-      setDoctors(locStoData);
-    }, 500);
+
+      // if(doctors != locStoData)
+        setDoctors(prevData => {
+          if (JSON.stringify(prevData) != JSON.stringify(locStoData)) {
+            return locStoData
+          }
+          else{
+            return prevData
+          }
+        });
+    }, 1000);
     return () => {
       clearInterval(timer);
     };
   }, []);
+
+  useEffect(() => {
+    speak(3,22);
+  }, [doctors]);
 
   return (
     <div style={{width:'100%', textAlign:"center", margin: "10px auto"}}>
