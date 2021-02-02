@@ -6,6 +6,8 @@ import "../css/main.css";
 import { DoctorContext } from "../contexts/DoctorContext";
 import { ENDPOINT } from "../constants/constants";
 
+import speak from "../components/Speech";
+
 var socket;
 // const ENDPOINT = "http://desktop-8560w:8080/";
 // const socket = socketIOClient(ENDPOINT);
@@ -73,6 +75,7 @@ export default function App() {
 
   const countInc = (doctorID, token) => {
     // console.log(docControl);
+    speak(doctorID,token+1)
     socket.emit("token-update", {
       doctorID,
       token: ++token,
@@ -280,7 +283,7 @@ export default function App() {
                           }}
                           alt="Delete"
                         >
-                          <i class="ri-delete-bin-3-line"></i>
+                          <i className="ri-delete-bin-3-line"></i>
                         </button>
                       </div>
                     </div>
@@ -355,7 +358,7 @@ const Msg = ({ msg, id, setMessage, state }) => {
         <p>{msg}</p>
       </div>
       <button type="submit" onClick={() => deleteMsg(id)} alt="Del">
-        <i class="ri-delete-bin-6-line"></i>
+        <i className="ri-delete-bin-6-line"></i>
       </button>
     </div>
   );

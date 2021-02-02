@@ -50,10 +50,6 @@ export default () => {
     };
   }, []);
 
-  useEffect(() => {
-    speak(3,22);
-  }, [doctors]);
-
   return (
     <div style={{width:'100%', textAlign:"center", margin: "10px auto"}}>
       <CarouselProvider
