@@ -126,7 +126,6 @@
   max-height: 6.2vh;
   width: 80%;
   max-width: 80%;
-  border: 2px solid black;
   border-radius: 5px;
   margin-right: 5px;
   border-radius: 5px;
@@ -140,6 +139,10 @@
   border-radius: 5px;
   border: 1px solid rgb(116, 116, 116);
   box-shadow: 1px 1px 1px #999;
+}
+
+.message-box button:hover {
+  background-color: antiquewhite;
 }
 
 /* .message-panel button {
@@ -218,6 +221,13 @@
 .token-control {
   /* flex: 0.3; */
   width: 3rem;
+  /* border-radius: 5px; */
+  border: 1px solid rgb(116, 116, 116);
+  box-shadow: 1px 1px 1px #999;
+}
+
+.token-control:hover {
+  background-color: antiquewhite;
 }
 
 /* .doc-counter h3  */
