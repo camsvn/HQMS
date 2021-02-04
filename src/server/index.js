@@ -116,8 +116,12 @@ io.on("connection", (socket) => {
   // });
 
   socket.on("token-update", (data) => {
-    const { doctorID, token } = data;
+    const { doctorID, token, operation } = data;
     // console.log("Token Update Request");
+    if (operation === "INC") {
+      // console.log("SpeakTrigger")
+      io.emit("speak-trigger", JSON.stringify({id: doctorID, token}));
+    }
     Token.update(
       { token },
       {
@@ -131,8 +135,12 @@ io.on("connection", (socket) => {
         io.emit("dbupdated");
         socket.emit("client-syncdb");
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(e));    
   });
+
+  // socket.on("speak-trigger", (data) => {
+  //   const {doctorID,token}= data;
+  // })
 
   socket.on("onBreak-update", (data) => {
     const { doctorID, onBreak } = data;

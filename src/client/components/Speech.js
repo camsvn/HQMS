@@ -1,13 +1,21 @@
-import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
+// const msgBody = ". Token Number ";
+// const utterance = new SpeechSynthesisUtterance();
+// utterance.pitch = 1;
+let msgBody;
+let utterance;
 
-  const msgBody = ". Token Number ";
-  const utterance = new SpeechSynthesisUtterance();
+let initUtterance = () => {
+  msgBody = ". Token Number ";
+  utterance = new SpeechSynthesisUtterance();
   utterance.pitch = 1;
+  utterance.voice = speechSynthesis
+      .getVoices()
+      .filter((voice) => voice.lang === "hi-IN")[0];
+}
 
-  const speak = (id, token) => {
-      utterance.voice = speechSynthesis
-        .getVoices()
-        .filter((voice) => voice.lang === "hi-IN")[0];
+const speak = (id, token) => {
+
+  initUtterance();
 
   if(utterance.voice) {
     switch (id) {
@@ -36,7 +44,7 @@ import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
         speechSynthesis.speak(utterance);
         break;
       case 9:
-        utterance.text = getUtteranceText(`Dr. Naisargi`, token);
+        utterance.text = getUtteranceText(`Dr. Naysargi`, token);
         speechSynthesis.speak(utterance);
         break;
       case 10:

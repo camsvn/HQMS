@@ -1,23 +1,19 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
-// import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,DotGroup,ImageWithZoom, ButtonPlay, ButtonFirst, ButtonLast } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
 import {
-  ButtonBack,
-  ButtonFirst,
-  ButtonLast,
-  ButtonNext,
-  ButtonPlay,
   CarouselProvider,
-  Dot,
   DotGroup,
-  ImageWithZoom,
   Slide,
   Slider,
 } from 'pure-react-carousel';
 
+import socketIOClient from "socket.io-client";
+import { ENDPOINT } from "../constants/constants";
 import speak from "./Speech";
 
+var socket;
+var fetchtimer;
 const TOKENSINSLIDE = 3;
 
 // import s from 'pure-react-carousel/dist/react-carousel.es.css';
@@ -28,7 +24,7 @@ export default () => {
   var locStoData = JSON.parse(localStorage.getItem("doctor"));
   // var newarray = locStoData.filter((item) => item.isVisible === true);
   const [doctors, setDoctors] = useState(locStoData ? locStoData : []);
-
+  
   useLayoutEffect(() => {
     var timer = setInterval(() => {
       var locStoData = JSON.parse(localStorage.getItem("doctor"));
@@ -47,6 +43,21 @@ export default () => {
     }, 1000);
     return () => {
       clearInterval(timer);
+    };
+  }, []);
+
+  useEffect(() => {
+    socket = socketIOClient(ENDPOINT);
+    socket.on("speak-trigger", (data) => {
+      // console.log("Speak Triggered")
+      let extractedData = JSON.parse(data);
+      const { id, token } = extractedData;
+      speak(id,token);
+    });
+
+    return () => {
+      // clearInterval(timer);
+      clearInterval(fetchtimer);
     };
   }, []);
 

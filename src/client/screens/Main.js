@@ -6,7 +6,7 @@ import "../css/main.css";
 import { DoctorContext } from "../contexts/DoctorContext";
 import { ENDPOINT } from "../constants/constants";
 
-import speak from "../components/Speech";
+// import speak from "../components/Speech";
 
 var socket;
 // const ENDPOINT = "http://desktop-8560w:8080/";
@@ -75,10 +75,16 @@ export default function App() {
 
   const countInc = (doctorID, token) => {
     // console.log(docControl);
-    speak(doctorID,token+1)
+    // speak(doctorID,token+1)
+    // socket.emit("speak-trigger", {
+    //   doctorID,
+    //   token: token+1,
+    //   operation: "INC"
+    // });
     socket.emit("token-update", {
       doctorID,
       token: ++token,
+      operation: "INC"
     });
   };
 
@@ -88,6 +94,7 @@ export default function App() {
       socket.emit("token-update", {
         doctorID,
         token: --token,
+        operation: "DEC"
       });
   };
 
@@ -246,7 +253,10 @@ export default function App() {
                               ? "toggle-arrow toggle-active"
                               : "toggle-arrow"
                           }
-                        >▼</span>
+                        >
+                          ▼
+
+                        </span>
                       </button>
                       <div className="doc-counter-mainview">
                         <h3>{getDoctorProp(id, "name")}</h3>
@@ -283,7 +293,7 @@ export default function App() {
                           }}
                           alt="Delete"
                         >
-                          <i className="ri-delete-bin-3-line"></i>
+                          <i className="ri-delete-bin-3-line" />
                         </button>
                       </div>
                     </div>
@@ -358,7 +368,7 @@ const Msg = ({ msg, id, setMessage, state }) => {
         <p>{msg}</p>
       </div>
       <button type="submit" onClick={() => deleteMsg(id)} alt="Del">
-        <i className="ri-delete-bin-6-line"></i>
+        <i className="ri-delete-bin-6-line" />
       </button>
     </div>
   );
@@ -393,7 +403,8 @@ const MsgForm = ({ setMessage, state }) => {
         type="text"
         value={msgInput}
         placeholder="Enter your message here"
-        onChange={(e) => handleTextChange(e)}></textarea>
+        onChange={(e) => handleTextChange(e)}
+      />
       <button type="submit">Add</button>
     </form>
   );
