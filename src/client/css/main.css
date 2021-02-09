@@ -86,7 +86,7 @@
   word-wrap: break-word;
   hyphens: auto;
   width: 100%;
-  font-family: 'Manjari', sans-serif;
+  font-family: "Manjari", sans-serif;
 }
 
 .message-container button {
@@ -258,7 +258,8 @@
 }
 
 /* .doc-counter div:nth-child(6)  */
-.token-counter-delete {
+.token-counter-delete,
+.speak-button-wrapper {
   /* width: 100px; */
   /* background-color: red; */
   /* color: black; */
@@ -267,10 +268,19 @@
   justify-content: center;
 }
 
-.token-counter-delete button {
+.token-counter-delete button,
+.speak-muted {
   cursor: pointer;
   background: rgb(240, 74, 68);
   /* padding-right: 5px; */
+  width: 50px;
+  color: white;
+  font-size: 22px;
+}
+
+.speak-active {
+  cursor: pointer;
+  background: rgb(4, 161, 4);
   width: 50px;
   color: white;
   font-size: 22px;
@@ -291,10 +301,9 @@
   transition: all 0.5s;
 }
 
-.toggle-active{
+.toggle-active {
   transform: rotate(180deg);
 }
-
 
 .collapse-control:hover {
   background: rgb(28, 143, 28);

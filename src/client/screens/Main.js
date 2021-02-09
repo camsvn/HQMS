@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect, useLayoutEffect } from "react";
 import socketIOClient from "socket.io-client";
+import { ToastContainer } from 'react-toastify';
+
 
 import "../css/main.css";
 // import mockData from "./constants/mockData";
@@ -25,6 +27,7 @@ export default function App() {
     updateDoctors,
     updateDocProps,
     updateDocPropsMsg,
+    toggleDocPropsSpeak,
   } = useContext(DoctorContext);
 
   // var { socket } = useContext(DoctorContext);
@@ -74,17 +77,12 @@ export default function App() {
   }, [viewAll]);
 
   const countInc = (doctorID, token) => {
-    // console.log(docControl);
-    // speak(doctorID,token+1)
-    // socket.emit("speak-trigger", {
-    //   doctorID,
-    //   token: token+1,
-    //   operation: "INC"
-    // });
+    let speak = getDoctorProp(doctorID, "speak");
     socket.emit("token-update", {
       doctorID,
       token: ++token,
-      operation: "INC"
+      operation: "INC",
+      speak
     });
   };
 
@@ -296,6 +294,18 @@ export default function App() {
                           <i className="ri-delete-bin-3-line" />
                         </button>
                       </div>
+                      <div className="speak-button-wrapper">
+                        <button
+                          type="button"
+                          className={getDoctorProp(id, "speak") ? "speak-active" : "speak-muted"}
+                          onClick={() => {
+                            toggleDocPropsSpeak(id);
+                          }}
+                          alt="Speak"
+                        >
+                          <i className={getDoctorProp(id, "speak") ? "ri-volume-up-fill" : "ri-volume-mute-fill"} />
+                        </button>
+                      </div>
                     </div>
                     <div
                       className={
@@ -352,6 +362,7 @@ export default function App() {
           ))}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

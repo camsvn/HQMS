@@ -31,13 +31,6 @@ FROM [HospitalMain].[dbo].[Token]
 WHERE Date = CAST(GETDATE() AS DATE))
 ORDER BY docName`;
 
-const getUniqueDoc1 = `SELECT DISTINCT op.DoctorID AS doctorID, doc.Name AS docName
-FROM [HospitalMain].[dbo].[AppointmentBooking] op
-INNER JOIN HospitalMain.dbo.Doctor doc
-ON op.DoctorID = doc.ID
-WHERE Date = CAST(GETDATE() AS DATE) AND DoctorID NOT IN (SELECT DISTINCT Token.doctorID FROM Token)
-ORDER BY docName`;
-
 const ltestResult = `SELECT     TOP (12) LabTestReportMaster.Patient, OPRegister.OPNo 
 FROM   LabTestReportMaster LEFT OUTER JOIN   OPRegister 
 ON LabTestReportMaster.OPRegisterID = OPRegister.ID ORDER BY LabTestReportMaster.ID DESC`;

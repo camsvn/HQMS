@@ -1,18 +1,29 @@
 import React, { createContext, useState, useEffect } from "react";
-// import socketIOClient from "socket.io-client";
+import { toast } from 'react-toastify';
 
-// var socket;
-// const ENDPOINT = "http://desktop-8560w:8080/";
+import 'react-toastify/dist/ReactToastify.css';
 
 export const DoctorContext = createContext();
 
 export default function DoctorContextProvider({ children }) {
-  // var socket;
+
+  const notify = (msg,type) => toast.success(msg, {
+    position: "bottom-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    type: type,
+    style: { color: 'black' }
+    });
+
   const localDocControl = localStorage.getItem("docControl");
   const localDoc = JSON.parse(localStorage.getItem("doctor"));
-  // const [doctors, setDoctors] = useState([]);
-  // const [docControl, setDocControl] = useState([]);
+
   const [doctors, setDoctors] = useState(localDoc ? localDoc : []);
+  const [mutedDoctors, setMutedDoctors] = useState([]);
   const [docControl, setDocControl] = useState(
     localDocControl ? JSON.parse(localDocControl) : []
   );
@@ -25,37 +36,6 @@ export default function DoctorContextProvider({ children }) {
     localStorage.setItem("docControl", JSON.stringify(docControl));
   }, [docControl]);
 
-  //   useEffect(() => {
-  //     socket = socketIOClient(ENDPOINT);
-  //     return () => {
-  //       if (socket) socket.disconnect();
-  //     };
-  //   }, []);
-
-  //   useEffect(() => {
-  //     //fetch Data from socket
-  //     socket.on("token-update", (data) => {
-  //       //Adding isVisible property to received Data
-  //       var addprop2doc = data.localDS.map((item) => {
-  //         item.isVisible = docControl.includes(item.id) ? true : false;
-  //         return item;
-  //       });
-  //       setDoctors(addprop2doc);
-  //     });
-  //     return () => {};
-  //   }, [docControl]);
-
-  //   const countInc = (id) => {
-  //     socket.emit("increment", {
-  //       id,
-  //     });
-  //   };
-
-  //   const countDec = (id) => {
-  //     socket.emit("decrement", {
-  //       id,
-  //     });
-  //   };
 
   const updateDoctors = (data) => {
     const newData = data.map((item) => {
@@ -86,6 +66,17 @@ export default function DoctorContextProvider({ children }) {
       return item;
     });
     setDoctors(newData);
+  };
+
+  const toggleDocPropsSpeak = (id) => {
+    const index2Toggle= mutedDoctors.indexOf(id)
+    if(index2Toggle === -1) {
+      notify(`${getDoctorProp(id,"name")} is muted`, toast.TYPE.WARNING);
+      setMutedDoctors([...mutedDoctors,id])
+    } else if (index2Toggle > -1) {
+      notify(`${getDoctorProp(id,"name")} can speak now`);
+      setMutedDoctors(mutedDoctors.filter((docid) => docid !== id))
+    }
   };
 
   const addDoc = (id) => {
@@ -140,6 +131,11 @@ export default function DoctorContextProvider({ children }) {
             doctors.findIndex(({ doctorID }) => doctorID === refid)
           ].collapse;
         break;
+      case "speak":        
+        if (mutedDoctors.indexOf(refid) !== -1)
+          return false;
+        else 
+          return true;
       case "onBreak":
         if (doctors.length > 0)
           return doctors[
@@ -169,6 +165,7 @@ export default function DoctorContextProvider({ children }) {
         updateDoctors,
         updateDocProps,
         updateDocPropsMsg,
+        toggleDocPropsSpeak,
         resetState,
       }}
     >

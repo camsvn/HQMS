@@ -10,10 +10,7 @@ const config = require("./config/appConfig");
 const db = require("./config/database");
 const queries = require("./models/queries");
 const Token = require("./models/token");
-const { sequelize } = require("./models/token");
-// const mockData = require("./models/mockData");
 
-// const localDS = [...mockData];
 const messages = [];
 var prevResult = "";
 
@@ -36,21 +33,8 @@ db.authenticate()
 //Socket Setup
 var io = socket(server);
 io.on("connection", (socket) => {
-  var client = socket.handshake.address.slice(7);
+  // var client = socket.handshake.address.slice(7);
   // console.log(`${client} Socket Connected`, socket.id);
-
-  // socket.emit("token-update", { localDS });
-
-  // socket.on("syncdb", async () => {
-  //   await Token.sync();
-  //   const [result, metadata] = await db.query(queries.getUniqueDoc);
-  //   result.length &&
-  //     result.map(async (item) => {
-  //       const id = await Token.create(item);
-  //       // console.log(`${item.docName}'s ID is ${id}`);
-  //       io.emit("dbupdated");
-  //     });
-  // });
 
   socket.on("syncdb", async () => {
     await Token.sync();
@@ -116,9 +100,9 @@ io.on("connection", (socket) => {
   // });
 
   socket.on("token-update", (data) => {
-    const { doctorID, token, operation } = data;
+    const { doctorID, token, operation, speak } = data;
     // console.log("Token Update Request");
-    if (operation === "INC") {
+    if (operation === "INC" && speak) {
       // console.log("SpeakTrigger")
       io.emit("speak-trigger", JSON.stringify({id: doctorID, token}));
     }
@@ -173,32 +157,6 @@ io.on("connection", (socket) => {
       .then((data) => io.emit("dbupdated"))
       .catch((e) => console.log(e));
   });
-
-  // socket.on("increment", (data) => {
-  //   //   let indexofID = localDS.findIndex(({ id }) => id === data.id);
-  //   //   localDS[indexofID].currentToken += 1;
-  //   //   io.sockets.emit("token-update", { localDS });
-  //   const { doctorID, token } = data;
-  //   Token.update({token},{
-  //     where: {
-  //       doctorID
-  //     }
-  //   })
-  // });
-
-  // socket.on("decrement", (data) => {
-  //   //   let indexofID = localDS.findIndex(({ id }) => id === data.id);
-  //   //   localDS[indexofID].currentToken !== 0
-  //   //     ? (localDS[indexofID].currentToken -= 1)
-  //   //     : (localDS[indexofID].currentToken = 0);
-  //   //   io.sockets.emit("token-update", { localDS });
-  //   const { doctorID, token } = data;
-  //   Token.update({token},{
-  //     where: {
-  //       doctorID
-  //     }
-  //   })
-  // });
 
   socket.on("disconnect", () => {
     // console.log(`${client} Socket Disonnected`, socket.id);

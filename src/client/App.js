@@ -3,7 +3,6 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import Main from "./screens/Main";
 import TokenDisplay from "./screens/TokenDisplay";
-import Slider from "./components/Slider";
 import DoctorContextProvider from "./contexts/DoctorContext";
 import MessageContextProvider from "./contexts/MessageContext";
 
